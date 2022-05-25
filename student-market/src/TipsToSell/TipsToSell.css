@@ -1,0 +1,134 @@
+@media (max-width : 480px) and (min-width : 320px) {
+    .sell_section{
+        padding: 1rem;
+    }
+    
+}
+.sell_page{
+    grid-template-columns: 7% 30% 5% 53% 2%;
+    display: grid;
+    grid-template-areas: ". sell . tips . ";   
+    margin-bottom: 3rem; 
+}
+.tips{
+    grid-area: tips ;
+}
+.tips_list{
+    list-style: none;
+    padding:0;
+}
+.display_none{
+    display: none;
+}
+.display_block{
+    display: block;
+}
+.each_tip{
+    border: none;
+
+    background-color: transparent;
+    font-size: large;
+     color: #1F75FE;
+    font-weight: bold;
+
+    padding-left: 0px;
+}
+.sell_section{
+    grid-area: sell; 
+    padding: 2rem;
+    border: 2px solid black; 
+    height: 25rem;
+    margin-top: 23px;
+}
+.Sell_header{
+    margin-left: 1.5rem;
+    margin-top: 0px;
+}
+.sell_error{
+    color: red;
+    font-weight: bold;
+    margin: 0.2rem;
+}
+.PrdName{
+    width: 100%;
+}
+.description{
+    height: 3rem;
+    width: 100%;
+}
+.price{
+    width: 100%;
+}
+.loadImage{
+    background-color: #1877f2;
+    border: none;
+    font-size: medium;
+    color: white;
+    line-height: 2rem;
+    border-radius: 4rem;
+}
+.tips_list li {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border: 1.5px solid grey;
+    box-shadow: 3px 2px 4px grey;
+}
+.tab_description{
+    color: grey;
+    padding-top: 1rem;
+}
+.link_to{
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+}
+.popup{
+    background-color: rgba(0,0,0,0.5);
+    height: 14rem;
+    padding: 12rem;
+    text-align: center;
+}
+.popup_box{
+    background-color: white;
+    padding: 5rem;
+    font-size: 2rem;
+}
+.tipsToSell_link{
+    font-size: 2.3rem;
+}
+@media (min-width: 481px) and (max-width: 1024px){
+    .sell_page{
+        display: flex;
+    flex-direction: column;
+    }
+    .popup{
+        height: 2rem;
+    padding: 6rem;
+    }
+    .popup_box {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .tipsToSell_link {
+        font-size: 1.1rem;
+    }
+}
+@media (max-width : 480px) and (min-width : 320px) {
+    .popup {
+        padding: 0rem;
+    }
+    .popup_box{
+        padding: 4rem;
+        font-size: 1rem;
+    }
+    .tipsToSell_link {
+        font-size: 1.1rem;
+    }
+    .sell_page{
+        display: flex;
+    flex-direction: column;
+    }
+    
+    
+
+}

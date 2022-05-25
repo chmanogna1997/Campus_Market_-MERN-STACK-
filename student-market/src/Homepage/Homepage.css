@@ -1,0 +1,172 @@
+.homepage_header{
+    position: absolute;
+    left: 27.4rem;
+
+    margin-top: 1rem;
+
+    width: 14rem;
+}
+.homepage_header_items{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0px;
+    font-family: sans-serif;
+    font-weight: 200;
+
+    margin: 0px;
+}
+.homepage_header_items a {
+    text-decoration: none;
+
+    text-decoration: none;
+    color: white;
+    font-size: large;
+}
+.WhatWeDo_section{
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+   
+    grid-template-columns: 5% 90% 5%;
+    grid-template-areas: ". main_image .";
+}
+.Homepage_maintext{
+    grid-area: main_text;
+
+    position: absolute;
+    top: 7rem;
+    right: 6rem;
+
+    background: white;
+
+    padding: 1rem;
+    border-radius: 35px;
+}
+.Homepage_image{
+    grid-area: main_image;
+
+    position: relative;
+}
+.Homepage_image img {
+       width: 100%;
+    height: 25rem;
+}
+.Homepage_maintext :first-child {
+    font-size: xx-large;
+    background-color: white;
+    color: orangered;
+    padding: 7px;
+
+    margin:1px;
+}
+#features {
+    margin-left: 5rem;
+    margin-right: 2rem;
+
+    margin-bottom: 2rem;
+}
+#disclaimer {
+    margin-left: 5rem;
+    margin-right: 2rem;
+    border-top: 2px solid grey;
+}
+
+.features_sub_section{
+    display: grid;
+    grid-template-columns: 52% 8% 40%;
+    grid-template-areas: " textSection . carousel";
+
+}
+.features_section_text{
+    grid-area: textSection;
+}
+.feature_carousel{
+    grid-area: carousel;
+    position: relative;
+}
+.prev{
+    position: absolute;
+    top: 9rem;
+    left: 0.5rem;
+
+    padding: 7px;
+
+    background-color: white;
+}
+.next{
+    top: 9rem;
+    right: 0.5rem;
+    position: absolute;
+
+    padding: 7px;
+
+    background-color: white;
+}
+.feature_carousel img {
+    height: 18rem;
+    width: 100%;
+}
+@media (max-width : 480px) and (min-width : 320px) {
+    .WhatWeDo_section {
+        grid-template-columns: 1% 98% 1%;
+    }
+    .Homepage_maintext :first-child {
+        font-size: initial;
+    }
+    .Homepage_maintext{
+        left: 1rem;
+    right: 1rem;
+    }
+    #features {
+        margin-left: 0.5rem;
+        margin-right: 0.1rem;
+    }
+    #disclaimer{
+        margin-left: 0.5rem;
+        margin-right: 0.1rem;
+    }
+    .features_sub_section{
+        display: flex;
+    flex-direction: column;
+    }
+}
+@media (min-width: 481px) and (max-width: 1024px){
+    .WhatWeDo_section {
+        grid-template-columns: 1% 98% 1%
+    }
+    .Homepage_maintext :first-child {
+        font-size: medium;
+        padding-left: 0px;
+    }
+    .Homepage_maintext{
+        font-size: small;
+        top: 10rem;
+    left: 14rem;
+    }
+    .homepage_header {
+        left: 15.4rem;
+    }
+    #features {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    #disclaimer {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    .feature_carousel img {
+        width: 60%;
+        margin-left: 9rem;
+    }
+    .next {
+        right: 11.5rem;;
+    }
+    .features_sub_section{
+        display: flex;
+    flex-direction: column;
+    }
+    .prev {
+        left: 9.5rem;
+    }
+}

@@ -1,0 +1,38 @@
+.account{
+    border: 1px solid grey;
+    box-shadow: 3px 2px 12px grey;
+    padding:1rem;
+}
+.profile_section{
+    grid-area: profile;
+}
+.user_profile_section{
+    grid-template-columns: 20% 60% 20%;
+    display: grid;
+    grid-template-areas: ". profile .";   
+}
+.account{
+    display:grid;
+    grid-template-columns: 4% 60% 20%;
+    grid-template-areas: ". details ad_edit";
+}
+.details{
+    grid-area: details;
+}
+.ad_edit{
+    grid-area: ad_edit;
+
+    padding: 0.8rem;
+}
+.fName{
+    margin-left: 1rem;
+}
+.lName{
+    margin-left: 1rem;
+}
+.email{
+    margin-left: 3.2rem;
+}
+.university{
+    margin-left:1.1rem;
+}
