@@ -1,3 +1,57 @@
+/* css for reset password modal */
+.reset_pwd_modal {
+    grid-template-columns: 1fr 0.8fr 1fr;
+    display: grid;
+    grid-template-areas: ". . ."
+                ". resetModal . ";
+    opacity: 0.9;
+}
+.modal_container{
+    grid-area: resetModal;
+
+    border: 1px solid grey;
+    padding: 1rem;
+    margin-top: 2rem;
+    height: 22rem;
+}
+.success{
+    color: green;
+    font-weight: bold;
+    margin: 1rem;
+}
+.modal_box{
+    position: relative;
+}
+.close_button{
+    right: 0;
+    position: absolute;
+    background-color: transparent;
+    color: red;
+    font-weight: bolder;
+    top: 0;
+}
+.modal_box form{
+    padding-left: 0rem;
+    padding-right: 1.7rem;
+
+    display: grid;
+    grid-gap: 1.2rem;
+}
+.resetBtn{
+    line-height: 2rem;
+    border-radius: 14px;
+    font-size: 21px;
+    background-color: #1877f2;
+    color: white;
+}
+.reset_pwd_form input {
+    border-radius: 20px;
+    line-height: 1rem;
+    padding: 1rem;
+    font-size: 17px;
+    border: 2px solid black;
+}
+
 .sigin_section{
     grid-area: signin;
     padding: 2rem;
@@ -19,6 +73,11 @@
 }
 .forgotPWD{
     margin-left: 0.8rem;
+    border: none;
+    background-color: transparent;
+    color: blue;
+    font: large;
+    font-size: 1rem;
 }
 .login_sec input {
     border-radius: 20px;

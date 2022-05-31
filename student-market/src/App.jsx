@@ -1,7 +1,7 @@
 import './App.css';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import SignIn_login from './SignIn_login/SignIn_login.jsx';
+import SignInLogin from './SignIn_login/SignIn_login.jsx';
 import Homepage from './Homepage/Homepage';
 import DisplayProducts from './DisplayProducts/DisplayProducts';
 import TipsToSell from './TipsToSell/TipsToSell';
@@ -16,12 +16,12 @@ function App() {
   // user details
   const [details, setdetails] = useState(
     {
-    'pwd': null,
-    'Fname' : null,
-    'LName' : null,
-    'Email' : null,
-    'university' : null,
-    'bookmarks' : []
+    pwd: null,
+    Fname : null,
+    LName : null,
+    Email : null,
+    university : null,
+    bookmarks : []
   });
 
   return (
@@ -44,7 +44,7 @@ function App() {
                                                 selectedProduct = {selectedProduct}
                                                 setSelectedProduct = {setSelectedProduct}
                                                  />} />
-      <Route path='/SigninLogin'  element = {<SignIn_login
+      <Route path='/SigninLogin'  element = {<SignInLogin
                                                 details = {details}
                                                 setdetails = {setdetails}
                                                 accessFlag = {accessFlag}

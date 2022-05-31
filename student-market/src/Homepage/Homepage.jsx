@@ -52,15 +52,15 @@ function Homepage({details, setdetails, accessFlag, setaccessFlag, selectedProdu
     }
     return(
         <Fragment>
-            <header>
-                <HeadComponent details = {details}
+                 <header>
+        <HeadComponent details = {details}
                                setdetails = {setdetails}
                                accessFlag = {accessFlag}
                                setaccessFlag = {setaccessFlag}
                                selectedProduct = {selectedProduct}
                                setSelectedProduct = {setSelectedProduct}
                                />
-            </header>
+        </header>
             <main>
             {/* {selectedProduct === null && <div className='homepage'> */}
          <div className='homepage'>
