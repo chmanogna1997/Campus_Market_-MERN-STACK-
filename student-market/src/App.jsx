@@ -29,6 +29,10 @@ function App() {
     <Routes> 
       <Route path='/Profile' element = {<Profile details = {details}
                                                 setdetails = {setdetails}
+                                                accessFlag = {accessFlag}
+                                                setaccessFlag = {setaccessFlag}
+                                                selectedProduct = {selectedProduct}
+                                                setSelectedProduct = {setSelectedProduct}
                                                 />}/>
       <Route path='/'  element = {<Homepage details = {details}
                                                 setdetails = {setdetails}
@@ -68,7 +72,7 @@ function App() {
                                                  selectedProduct = {selectedProduct}
                                                 setSelectedProduct = {setSelectedProduct}
                                                   />} />
-      <Route path='*' element = {<Error />}/>
+      {/* <Route path='*' element = {<Error />}/> */}
     </Routes>
     </BrowserRouter>
   );

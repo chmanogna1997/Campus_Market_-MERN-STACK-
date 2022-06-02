@@ -49,18 +49,18 @@ Router.route("/resetPwd").post(function(req,res){
 
 // // adding new user
 Router.route("/adduser").post(function(req,res){
-    console.log(" in post request ", req.body)
+    // console.log(" in post request ", req.body)
     let myquery = { Email: req.body.Email};
-    console.log("myquery is ", myquery);
+    // console.log("myquery is ", myquery);
     dbo.getDb("campus_market")
     .collection("User_details")
     .findOne(myquery,function(err,result){
         if (err) {throw err}
-        console.log("the result is ",result)
+        // console.log("the result is ",result)
         if(result !== null){
             res.json({userExist : true})
         }else{
-            console.log("the req body is ", req.body)
+            // console.log("the req body is ", req.body)
             let myobj = {
                 Email : req.body.Email,
                 FName : req.body.Fname,
@@ -68,7 +68,7 @@ Router.route("/adduser").post(function(req,res){
                 university : req.body.university,
                 pwd : req.body.pwd
             }
-            console.log(" my object is ",req.body, myobj)
+            // console.log(" my object is ",req.body, myobj)
             dbo.getDb("campus_market")
             .collection("User_details")
             .insertOne(myobj, function(err,out){
@@ -77,6 +77,18 @@ Router.route("/adduser").post(function(req,res){
             })
         }
     })
+})
+
+// sell products by user
+
+Router.route("/sellProducts").post(function(req,res){
+    let myquery = { Email: req.body.Email};
+    console.log("in add products for user section", (req.files) );
+    console.log("**** ", req.body);
+   
+    res.send("hello")
+    
+
 })
 
 module.exports = Router;

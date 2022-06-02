@@ -61,8 +61,8 @@ function Header({details, setdetails, accessFlag, setaccessFlag, setSelectedProd
                 </div>
                 <div className='login_section'>
                     {accessFlag && <div className='details_section'>
-                        <span className='user_email'>Hello {details.Email}</span>
-                        <button className='Account_btn' onClick={showProfile} > Profile  </button>
+                        <span className='user_email'>Hello, {details.Email}</span>
+                        <button className='Account_btn' onClick={showProfile} > Account  </button>
                         {/* <button className='Account_btn'  data-tip data-for="userdata_Tip" > Profile  </button> */}
                         {/* <ReactTooltip id="userdata_Tip" place="bottom" effect="solid">
                         <div> <span>First Name : </span> <span>{details.Fname}</span> </div>
