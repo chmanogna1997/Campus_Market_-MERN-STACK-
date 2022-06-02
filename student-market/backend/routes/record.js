@@ -9,6 +9,22 @@ const dbo = require("../db/dbconn");
 //This will help us to convert id ( params id ) from string to objectid
 const ObjectId = require("mongodb").ObjectId;
 
+// need this to read the image file
+const fs = require('fs');
+
+const multer = require('multer');
+
+// give destination where image is getting uploaded
+const storage = multer.diskStorage({
+    // where should we store the image
+destination:(req,file,callback)=> { callback(null,'uploads') },
+// name of the image file
+filename: (req,file,callback)=>{callback(null,file.originalname)}
+})
+
+// now need to configuring the storage : telling use this storage
+ const upload = multer({storage:storage});
+
 
 // // lets get list of records
 Router.route("/get").get(function(req,res) {
@@ -80,16 +96,14 @@ Router.route("/adduser").post(function(req,res){
 })
 
 // sell products by user
+// make sure that image we are giving inside single ( should match the variable name)
+Router.post("/sellProducts", upload.single('prdimage') , function(req,res){
 
-Router.route("/sellProducts").post(function(req,res){
-    let myquery = { Email: req.body.Email};
-    console.log("in add products for user section", (req.files) );
-    console.log("**** ", req.body);
-   
-    res.send("hello")
-    
-
+    const image_data = fs.readFileSync('uploads/'+ req.file.filename);
+    console.log(image_data);
+    console.log("in sell products", req.file)
+    console.log("the body is ", req.body);
+    res.send("boom")
 })
-
 module.exports = Router;
 
