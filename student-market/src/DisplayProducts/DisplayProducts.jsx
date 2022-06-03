@@ -6,6 +6,7 @@ import i from '../images/h1.jpg'
 import HeadComponent from '../Header/Header';
 import Foot from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import { async } from '@firebase/util';
 
 
 
@@ -26,6 +27,21 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
             
         }
     }
+
+    // useffect to make a async call : conditional rerender
+    useEffect(() => {
+       async function fetch_Products(){
+           const K = null;
+           let url = `http://localhost:1000/product/${selectedProduct}/${null}`;
+           console.log("the url is ", url);
+           let response =  await fetch(url)
+           let record = await response.json();
+           console.log("the record is ", record);
+       }
+       fetch_Products();
+    },
+    [selectedProduct]
+    )
 
     useEffect(() => {
         setproductDetails('')

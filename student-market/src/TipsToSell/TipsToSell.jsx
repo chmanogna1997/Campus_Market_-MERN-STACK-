@@ -84,6 +84,7 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     // on form submit add details o user profilr
     function getToSellProductDetails(e) {
         e.preventDefault();
+        setrecord_added(false);
         if (e.target.sellPrdCategory.value !== 'Choose a category') {
             // setting product name
             setSellPrddetails({'sellPrdname' : e.target.sellPrdname.value})

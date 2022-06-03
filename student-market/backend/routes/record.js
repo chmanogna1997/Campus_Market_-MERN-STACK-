@@ -103,6 +103,23 @@ Router.post("/ssellProducts", uupload.single('sellPrdImages') , function(req,res
     })
 })
 
+//  get request : to get the products
+Router.route("/product/:category/:university").get(function(req,res){
+    console.log("books :: ", req.params.category , req.params.university)
+    var collection = (req.params.category).toLowerCase()
+    console.log("the collection", collection)
+    dbo.getDb("campus_market")
+    .collection(collection)
+    .find({})
+    .toArray(function(err, out){
+        if (err) throw err;
+        // console.log("the output is", out);
+        res.json(out);
+    });
+    // res.send("boom hello hello");
+})
+
+
 
 // // lets get list of records
 Router.route("/get").get(function(req,res) {
