@@ -46,7 +46,7 @@ function SignIn_login({ details, setdetails, accessFlag, setaccessFlag, selected
     async function addUser_post(e) {
         setErrorFlag({ 'signup_has_error': false });
 
-        const response = await fetch("http://localhost:1000/addProduct",{
+        const response = await fetch("http://localhost:1000/adduser",{
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -56,7 +56,9 @@ function SignIn_login({ details, setdetails, accessFlag, setaccessFlag, selected
                 Fname: e.target.fname.value,
                 LName: e.target.lname.value,
                 Email: e.target.email.value,
-                university: e.target.university.value
+                university: e.target.university.value,
+                userProducts : [],
+                userBookmarks : []
             }),
           })
 

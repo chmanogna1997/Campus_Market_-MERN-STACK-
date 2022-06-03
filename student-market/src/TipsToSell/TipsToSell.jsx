@@ -19,15 +19,12 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
         'expanded': false
     });
     const [errorFlag, setErrorFlag] = useState(false);
+    const [fileLimitError, setfileLimitError] = useState(false);
+    const [record_added, setrecord_added] = useState(false);
     const [tips, setTips] = useState([]);
-    const [selectedImages, setSelectedImages] = useState(null);
-
+    // const [selectedImages, setSelectedImages] = useState(null);
     const [sellprddetails, setSellPrddetails] = useState({
         'sellPrdname': null,
-        'sellPrdDescrpt': null,
-        'SellPrdPrice': null,
-        'sellPrdCategory': null,
-        'sellPrdImages': null
     });
 
 
@@ -37,7 +34,7 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     useEffect(() => {
         const getTips = async () => {
             const tips_data = await getDocs(tipCollectionRef);
-            console.log(" the tppppppp :: ", tips_data.docs.map((doc) => ({ ...doc.data() })));
+            // console.log(" the tppppppp :: ", tips_data.docs.map((doc) => ({ ...doc.data() })));
             setTips(tips_data.docs.map((doc) => ({ ...doc.data() })));
         }
         getTips()
@@ -46,27 +43,41 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     // async function tp add products 
     async function post_user_products(e) {
         const formData = new FormData()
-
-        // console.log("the input files are ", Object.entries(e.target.files.files))
-
-        
-
         formData.append( 'Email', details.Email);
         formData.append( 'university', details.university);
-        formData.append( 'files', selectedImages );
         formData.append( 'sellPrdName',e.target.sellPrdname.value);
         formData.append(  'sellPrdDescrpt', e.target.sellPrdDescrpt.value);
         formData.append(  'SellPrdPrice', e.target.sellPrdPrice.value);
         formData.append(  'sellPrdCategory', e.target.sellPrdCategory.value);
-
+        // *** Now sending files to backend ****
+        // formData.append( 'files', selectedImages );  ==> this doesnt work for multiple files  
+        var imagefiles = e.target.files.files;
+        var filesArr = Array.prototype.slice.call(imagefiles);
+        filesArr.forEach(function(f){ 
+            console.log("the file is ", f);
+            formData.append('files', f); });
 
         const response = await fetch("http://localhost:1000/sellProducts", {
             method: "POST",
             body: formData
         });
-
-        console.log(" the response is ....", response);
-
+        if (!response.ok) {
+            console.log(response)
+        }
+        else{
+            const record = await response.json();
+            console.log("the record is ", record.output.lastErrorObject.updatedExisting)
+            if(record.output.lastErrorObject.updatedExisting){
+                setrecord_added(true);
+                e.target.sellPrdname.value = '';
+                e.target.sellPrdDescrpt.value = '';
+                e.target.sellPrdPrice.value = '';
+                e.target.sellPrdCategory.value = '';
+                e.target.files.value = ''
+            }else{
+                setrecord_added(false);
+            }
+        }
     }
 
 
@@ -74,6 +85,8 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     function getToSellProductDetails(e) {
         e.preventDefault();
         if (e.target.sellPrdCategory.value !== 'Choose a category') {
+            // setting product name
+            setSellPrddetails({'sellPrdname' : e.target.sellPrdname.value})
             // calling async function
             post_user_products(e);
             setErrorFlag(false);
@@ -81,6 +94,17 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
             setErrorFlag(true);
         }
     };
+
+    // to limit the selction of the file 
+    function limit_selection(e){
+        if(e.target.files.length > 5){
+            e.target.value = ''
+            setfileLimitError(true);
+        }else{
+            setfileLimitError(false);
+        }
+       
+    }
 
     // @ Tips to sell fast : this for tab selection 
     function showSubEle(e) {
@@ -94,7 +118,6 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
 
     return (
         <Fragment>
-            {console.log("the selected images are", selectedImages)}
             <header>
                 <HeadComponent details={details}
                     setdetails={setdetails}
@@ -128,12 +151,15 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
                             <label>Product Name: <input required name='sellPrdname' className='PrdName'></input></label>
                             <label>Description: <input required name='sellPrdDescrpt' className='description'></input></label>
                             <label>Price ($): <input required name='sellPrdPrice' className='price'></input> </label>
-                            {/* onChange={(e) => { setSelectedImages(e.target.files) }} */}
-                            <label>Upload image : <input type='file' required name='files' multiple accept="image/*"  ></input></label>
+                          
+                            <label>Upload image : <input type='file' required name='files' multiple accept="image/*"  onChange={limit_selection} ></input></label>
 
                             <button type='submit' className='loadImage'>Submit </button>
 
                             {errorFlag && <div className='sell_error'>Please choose a category !!</div>}
+                            {fileLimitError && <div className='sell_error'> Cannot choose more than 5 images !!</div> }
+                            {console.log("is record added ", record_added)}
+                            {record_added && <div className='sucess_msg'>Sucessfully added product to market !! </div>}
 
                         </form>
                     </div>
@@ -163,8 +189,6 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
                         </ul>
                     </div>
                 </div>}
-
-
             </main>
             <footer>
                 <Foot />

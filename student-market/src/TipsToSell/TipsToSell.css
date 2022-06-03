@@ -4,6 +4,10 @@
     }
     
 }
+.sucess_msg{
+    color: green;
+    font-size: large;
+}
 .sell_page{
     grid-template-columns: 7% 30% 5% 53% 2%;
     display: grid;
