@@ -47,19 +47,19 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     async function post_user_products(e) {
         const formData = new FormData()
 
+        // console.log("the input files are ", Object.entries(e.target.files.files))
+
+        
+
         formData.append( 'Email', details.Email);
         formData.append( 'university', details.university);
-        formData.append( 'sellPrdImages', selectedImages);
+        formData.append( 'files', selectedImages );
         formData.append( 'sellPrdName',e.target.sellPrdname.value);
         formData.append(  'sellPrdDescrpt', e.target.sellPrdDescrpt.value);
         formData.append(  'SellPrdPrice', e.target.sellPrdPrice.value);
         formData.append(  'sellPrdCategory', e.target.sellPrdCategory.value);
 
-        // formData.append("imageFile",selectedImages);
 
-        console.log("the formadata is ", formData);
-
-        console.log(" the image files are :" , selectedImages);
         const response = await fetch("http://localhost:1000/sellProducts", {
             method: "POST",
             body: formData
@@ -74,14 +74,6 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     function getToSellProductDetails(e) {
         e.preventDefault();
         if (e.target.sellPrdCategory.value !== 'Choose a category') {
-            // setSellPrddetails({
-            //     'sellPrdname': e.target.sellPrdname.value,
-            //     'sellPrdDescrpt': e.target.sellPrdDescrpt.value,
-            //     'SellPrdPrice': e.target.SellPrdPrice.value,
-            //     'sellPrdCategory': e.target.sellPrdCategory.value,
-            //     'sellPrdImages' : selectedImages
-            // });
-
             // calling async function
             post_user_products(e);
             setErrorFlag(false);
@@ -122,7 +114,7 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
                 {accessFlag && < div className='sell_page'>
                     <div className='sell_section'>
                         <h2 className='Sell_header'>Sell on Campus Market</h2>
-                        <form onSubmit={getToSellProductDetails} enctype= 'multipart/form-data'>
+                        <form onSubmit={getToSellProductDetails}  enctype= 'multipart/form-data'>
                             <label>Choose a category
                                 <select className='category_dropdown' required name='sellPrdCategory'>
                                     {category.map(e => {
@@ -136,7 +128,8 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
                             <label>Product Name: <input required name='sellPrdname' className='PrdName'></input></label>
                             <label>Description: <input required name='sellPrdDescrpt' className='description'></input></label>
                             <label>Price ($): <input required name='sellPrdPrice' className='price'></input> </label>
-                            <label>Upload image : <input type='file' required name='sellPrdImages' multiple accept="image/*" onChange={(e) => { setSelectedImages(e.target.files[0]) }}></input></label>
+                            {/* onChange={(e) => { setSelectedImages(e.target.files) }} */}
+                            <label>Upload image : <input type='file' required name='files' multiple accept="image/*"  ></input></label>
 
                             <button type='submit' className='loadImage'>Submit </button>
 

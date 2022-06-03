@@ -11,7 +11,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // need this to read the image file
 const fs = require('fs');
-
+//  *********************************************************************
 const multer = require('multer');
 
 // give destination where image is getting uploaded
@@ -23,7 +23,55 @@ filename: (req,file,callback)=>{callback(null,file.originalname)}
 })
 
 // now need to configuring the storage : telling use this storage
- const upload = multer({storage:storage});
+//  const upload = multer({storage:storage}); ===> this is used to store/upload single image
+
+// upload sing le file ::
+const upload = multer({storage:storage});
+// to upload multiple images
+const uupload = multer({storage:storage}).array('files',5);
+
+// ******************************************************************************
+// sell products by user
+// make sure that image variable name we are giving inside single ( should match the variable name) must match
+// Router.post("/sellProducts", upload.single('prdimage') , function(req,res){
+
+Router.post('/sellProducts',function(req,res,next){
+
+    // console.log(req.file)
+    uupload(req,res,function(err){
+        console.log(" in heree bro")
+        if(err){
+            console.log(err)
+        }
+        console.log(req.body);
+        console.log("*****************");
+        console.log(req.files)
+        res.send("wowowow")
+    })
+})
+// need to upload multiple images ( array of images)
+Router.post("/ssellProducts", upload.single('sellPrdImages') , function(req,res){
+    const image_data = fs.readFileSync('uploads/'+ req.file.filename);
+    // console.log(image_data);
+    console.log("in sell products", req.file)
+    console.log("the body is ", req.body);
+    let myobj = {
+        Email : req.body.Email,
+        university : req.body.university,
+        sellPrdName : req.body.sellPrdName,
+        sellPrdDescrpt : req.body.sellPrdDescrpt,
+        sellPrdPrice : req.body.SellPrdPrice,
+        sellPrdCategory : req.body.sellPrdCategory,
+        imageData : image_data
+    }
+    dbo.getDb("campus_market")
+    .collection("books")
+    .insertOne(myobj, function(err,out){
+        if(err) throw err;
+        console.log("the output is ", JSON.stringify(out.insertedId));
+        res.json(out);
+    })
+})
 
 
 // // lets get list of records
@@ -95,15 +143,8 @@ Router.route("/adduser").post(function(req,res){
     })
 })
 
-// sell products by user
-// make sure that image we are giving inside single ( should match the variable name)
-Router.post("/sellProducts", upload.single('prdimage') , function(req,res){
 
-    const image_data = fs.readFileSync('uploads/'+ req.file.filename);
-    console.log(image_data);
-    console.log("in sell products", req.file)
-    console.log("the body is ", req.body);
-    res.send("boom")
-})
+
+
 module.exports = Router;
 
