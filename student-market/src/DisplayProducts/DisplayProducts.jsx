@@ -6,6 +6,7 @@ import i from '../images/h1.jpg'
 import HeadComponent from '../Header/Header';
 import Foot from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
+import {Buffer} from 'buffer'
 import { async } from '@firebase/util';
 
 
@@ -30,12 +31,16 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
 
     // useffect to make a async call : conditional rerender
     useEffect(() => {
+        setproductDetails('')
        async function fetch_Products(){
            const K = null;
            let url = `http://localhost:1000/product/${selectedProduct}/${null}`;
            console.log("the url is ", url);
            let response =  await fetch(url)
            let record = await response.json();
+           // setting the values
+           setproductDetails(record);
+           setErrorFlag(false)
            console.log("the record is ", record);
        }
        fetch_Products();
@@ -43,17 +48,22 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
     [selectedProduct]
     )
 
-    useEffect(() => {
-        setproductDetails('')
-        fetchPrdDetails(selectedProduct)
-        .then((output) => {
-            setproductDetails(output);
-            setErrorFlag(false)
-        })
-        .catch((error) => {setErrorFlag(true)})
-    },
-    [selectedProduct]
-    )
+    // useEffect(() => {
+    //     setproductDetails('')
+    //     fetchPrdDetails(selectedProduct)
+    //     .then((output) => {
+    //         setproductDetails(output);
+    //         setErrorFlag(false)
+    //     })
+    //     .catch((error) => {setErrorFlag(true)})
+    // },
+    // [selectedProduct]
+    // )
+    function toBase64(data) {
+        //arr = new Uint8Array(arr) if it's an ArrayBuffer
+        return Buffer.from(data).toString('base64')
+     }
+
 return(
     <Fragment>
         <header>
@@ -73,14 +83,34 @@ return(
         <ul className='product_list'>
             { productDetails.map(e =>             
                 {
+                    console.log("the image data is >>> ", e.imageData)
+                    // let base64String = Buffer.from(e.imageData[0],'base64')
+                    // console.log("the base64String is ::: ", base64String);
+                    var blob = new Blob([e.imageData[0]], { type: "image/jpeg" });
+                    var urlCreator = window.URL || window.webkitURL;
+                    var imageUrl = urlCreator.createObjectURL(blob);
+                    console.log("the image url is ::", imageUrl);
+                  
+                //    let binary = Buffer.from(e.imageData[0]);
+                //    console.log("the data is ", e.imageData[0])
+                //    let imgData = new Blob([binary.buffer],{type:'image/png'})
+                // //    type: 'image/bmp'
+                //    let link = URL.createObjectURL(imgData);
+                //    let f_link = URL.revokeObjectURL(link)
+                //    console.log("the link is ::::::: ", link)
+                // // let type = "image/jpeg"
+                // // let link = (`data:${type};base64,${Buffer.from(e.imageData[0]).toString('base64')}`)
+                // // console.log("the link is ", link)
                     return( 
-                        <li key={e.id} className='product_section'>
+                        <li key={e._id} className='product_section'>
                             <a  className = 'product_link' href='#'>
-                                <img src={i} alt = {e.title}></img>
+                                {/* <img src={e.imageData[0]} alt = {e.sellPrdName}></img> */}
+                                <img src={`imageUrl`} alt = {e.sellPrdName} width="300"></img>
                                 <div className = 'each_prd_details'>
-                                    <span className='product_price'>{e.price}</span>
-                                    <span className='product_title'>{e.title}</span>
-                                    <span className='product_description'>{e.description}</span>
+                                    <span className='product_price'>{e.sellPrdPrice}</span>
+                                    <span className='product_title'>{e.sellPrdName}</span>
+                                    <span className='product_description'>{e.sellPrdDescrpt}</span>
+                                    <span className='product_email'>{e.Email}</span>
                                 </div>
                             </a>
                             <span className='bookmark_section'>

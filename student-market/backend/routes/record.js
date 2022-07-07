@@ -1,5 +1,8 @@
 const { response, json } = require("express");
 const express = require("express");
+
+// import {Buffer} from 'buffer';
+const {Buffer} = require("buffer")
 // the router will be added as middleware and controls the request starting with path /
 const Router = express.Router();
 
@@ -41,8 +44,10 @@ Router.post('/sellProducts',function(req,res){ upload(req,res,function(err){
 
          for(var i=0; i<req.files.length; i++){
             var image_data = fs.readFileSync('uploads/' + req.files[i].filename);
-            console.log(" the image data is ", typeof(image_data));
+            console.log("the image before is  data is ", image_data);
+            console.log("the typeof image data is ", typeof(image_data))
             image_data_array[i] = image_data
+            console.log("the image data after is ", image_data_array[i] )
          }
         let myobj = {
             Email : req.body.Email,
@@ -54,12 +59,12 @@ Router.post('/sellProducts',function(req,res){ upload(req,res,function(err){
             imageData : image_data_array
         }
         var collection = (req.body.sellPrdCategory).toLowerCase();
-        console.log("the collection is ************* ", collection);
+        // console.log("the collection is ************* ", collection);
         dbo.getDb("campus_market")
         .collection(collection)
         .insertOne(myobj,function(err,out){
             // if(err) throw err;
-            console.log("the output of inserting product is ", out)
+            // console.log("the output of inserting product is ", out)
             // checking if the record is inserted to its collection : adding its id to user products
             JSON.stringify(out.insertedId)
             if(JSON.stringify(out.insertedId) != null){
@@ -67,7 +72,7 @@ Router.post('/sellProducts',function(req,res){ upload(req,res,function(err){
                 .collection("User_details")
                 .findOneAndUpdate({Email : req.body.Email}, {$push : { userProducts : JSON.stringify(out.insertedId)}}, function(err,result){
                     if(err){ throw err}
-                    console.log("the result is ", result)
+                    // console.log("the result is ", result)
                     res.json({"output" : result})
                 })
             }
