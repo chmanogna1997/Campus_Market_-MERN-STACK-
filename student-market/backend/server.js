@@ -4,13 +4,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("dotenv").config();
-const port = process.env.Backend_PORT || 1100;
+const port = process.env.Backend_PORT || 8080;
 app.use(cors());
 app.use(express.json());
-
-// // // enables files upload
-// app.use(fileUpload({createParentPath: true})); 
-
 
 // enables image Upload
 app.use(express.static('../public'))
@@ -18,7 +14,6 @@ app.use(express.static('../public'))
 app.use(require("./routes/record"))
 // get driver connection
 const dbo = require("./db/dbconn");
-const UploadTimer = require("express-fileupload/lib/uploadtimer");
 
 app.listen(port, () =>{
     // connecting to db

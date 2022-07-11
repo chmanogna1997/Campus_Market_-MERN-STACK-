@@ -6,6 +6,9 @@ import HeadComponent from '../Header/Header';
 import { category } from '../fake-services/services_data';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
+import { storage } from '../firebase/firebase';
+import {ref, uploadBytes, getDownloadURL, getStorage} from 'firebase/storage'
+import {v4} from "uuid";
 
 // want to do
 // upload images fromlocal
@@ -41,33 +44,30 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     }, [])
 
     // async function tp add products 
-    async function post_user_products(e) {
-        const formData = new FormData()
-        formData.append( 'Email', details.Email);
-        formData.append( 'university', details.university);
-        formData.append( 'sellPrdName',e.target.sellPrdname.value);
-        formData.append(  'sellPrdDescrpt', e.target.sellPrdDescrpt.value);
-        formData.append(  'SellPrdPrice', e.target.sellPrdPrice.value);
-        formData.append(  'sellPrdCategory', e.target.sellPrdCategory.value);
-        // *** Now sending files to backend ****
-        // formData.append( 'files', selectedImages );  ==> this doesnt work for multiple files  
-        var imagefiles = e.target.files.files;
-        var filesArr = Array.prototype.slice.call(imagefiles);
-        filesArr.forEach(function(f){ 
-            console.log("the file is ", f);
-            formData.append('files', f); });
-
+    async function post_user_products(e,url) {
+   console.log("In post , the url is ", url);
+        var obj = JSON.stringify({
+            Email: details.Email,
+            university: details.university,
+            sellPrdName: e.target.sellPrdname.value,
+            sellPrdDescrpt: e.target.sellPrdDescrpt.value,
+            SellPrdPrice: e.target.sellPrdPrice.value,
+            sellPrdCategory :e.target.sellPrdCategory.value,
+            imageFile : url
+        });
+        console.log("the sell obj is ", obj);
         const response = await fetch("http://localhost:1000/sellProducts", {
             method: "POST",
-            body: formData
+            headers: {"Content-Type": "application/json",},
+            body: obj,
         });
         if (!response.ok) {
             console.log(response)
         }
         else{
-            const record = await response.json();
-            console.log("the record is ", record.output.lastErrorObject.updatedExisting)
-            if(record.output.lastErrorObject.updatedExisting){
+            const res = await response.json();
+            console.log("the record res is ", res)
+            if(res){
                 setrecord_added(true);
                 e.target.sellPrdname.value = '';
                 e.target.sellPrdDescrpt.value = '';
@@ -82,14 +82,48 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
 
 
     // on form submit add details o user profilr
-    function getToSellProductDetails(e) {
+      function getToSellProductDetails(e) {
         e.preventDefault();
         setrecord_added(false);
         if (e.target.sellPrdCategory.value !== 'Choose a category') {
             // setting product name
             setSellPrddetails({'sellPrdname' : e.target.sellPrdname.value})
-            // calling async function
-            post_user_products(e);
+            // calling firebase storage and storing images
+              // loading bulk of images :
+            let userArrayPromise =  new Promise((resolve, reject) => {
+             let url_arr = []
+            for(let i = 0; i < e.target.files.files.length ; i++){
+              console.log("in for function the i is", i)
+             var imagefile = e.target.files.files[i];
+             console.log(" now the image file is ..", imagefile);
+             console.log('the name of the file is ', imagefile.name);
+
+            const imageRef = ref(storage,`images/${imagefile.name + v4()}`);
+            // we made reference need to upload it now using uploadbytes
+            uploadBytes(imageRef, imagefile).then((response) => {
+                console.log("the reference is ", response);
+                console.log("the image is uploaded", response.ref);
+                console.log("the values are ", response.metadata.name);
+                 var full_path = response.metadata.fullPath;
+                 console.log("the full path is ::: ", full_path)
+                 var get_storage = getStorage();
+                 getDownloadURL(ref(get_storage, full_path))
+                 .then((url) => {
+                     console.log("the url is ", url);
+                     // calling async function
+                      post_user_products(e, url);
+                      // calling async function
+                     url_arr.push(url);
+                     console.log("the i, lenth is ", i, e.target.files.files.length)
+                     if(i === e.target.files.files.length){
+                         console.log("insoide if calling post req")
+                        resolve(url_arr);
+                        post_user_products(e, url_arr);}
+                 })
+               })
+            }
+            })
+            
             setErrorFlag(false);
         } else {
             setErrorFlag(true);
@@ -138,7 +172,7 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
                 {accessFlag && < div className='sell_page'>
                     <div className='sell_section'>
                         <h2 className='Sell_header'>Sell on Campus Market</h2>
-                        <form onSubmit={getToSellProductDetails}  enctype= 'multipart/form-data'>
+                        <form onSubmit={getToSellProductDetails}>
                             <label>Choose a category
                                 <select className='category_dropdown' required name='sellPrdCategory'>
                                     {category.map(e => {

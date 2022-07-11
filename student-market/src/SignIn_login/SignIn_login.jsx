@@ -45,7 +45,7 @@ function SignIn_login({ details, setdetails, accessFlag, setaccessFlag, selected
 
     async function addUser_post(e) {
         setErrorFlag({ 'signup_has_error': false });
-
+        console.log("the e is ", e);
         const response = await fetch("http://localhost:1000/adduser",{
             method: "POST",
             headers: {

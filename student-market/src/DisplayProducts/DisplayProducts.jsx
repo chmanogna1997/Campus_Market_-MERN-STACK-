@@ -86,10 +86,7 @@ return(
                     console.log("the image data is >>> ", e.imageData)
                     // let base64String = Buffer.from(e.imageData[0],'base64')
                     // console.log("the base64String is ::: ", base64String);
-                    var blob = new Blob([e.imageData[0]], { type: "image/jpeg" });
-                    var urlCreator = window.URL || window.webkitURL;
-                    var imageUrl = urlCreator.createObjectURL(blob);
-                    console.log("the image url is ::", imageUrl);
+                    
                   
                 //    let binary = Buffer.from(e.imageData[0]);
                 //    console.log("the data is ", e.imageData[0])
