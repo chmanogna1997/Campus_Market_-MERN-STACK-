@@ -81,25 +81,11 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
     }
 
 
-    // on form submit add details o user profilr
-      function getToSellProductDetails(e) {
-        e.preventDefault();
-        setrecord_added(false);
-        if (e.target.sellPrdCategory.value !== 'Choose a category') {
-            // setting product name
-            setSellPrddetails({'sellPrdname' : e.target.sellPrdname.value})
-            // calling firebase storage and storing images
-              // loading bulk of images :
-            let userArrayPromise =  new Promise((resolve, reject) => {
-             let url_arr = []
-            for(let i = 0; i < e.target.files.files.length ; i++){
-              console.log("in for function the i is", i)
-             var imagefile = e.target.files.files[i];
-             console.log(" now the image file is ..", imagefile);
-             console.log('the name of the file is ', imagefile.name);
+    //loading images to firesbase storage
 
+    function addImages(imagefile){
+        return new Promise(resolve => {
             const imageRef = ref(storage,`images/${imagefile.name + v4()}`);
-            // we made reference need to upload it now using uploadbytes
             uploadBytes(imageRef, imagefile).then((response) => {
                 console.log("the reference is ", response);
                 console.log("the image is uploaded", response.ref);
@@ -109,20 +95,40 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
                  var get_storage = getStorage();
                  getDownloadURL(ref(get_storage, full_path))
                  .then((url) => {
-                     console.log("the url is ", url);
-                     // calling async function
-                      post_user_products(e, url);
-                      // calling async function
-                     url_arr.push(url);
-                     console.log("the i, lenth is ", i, e.target.files.files.length)
-                     if(i === e.target.files.files.length){
-                         console.log("insoide if calling post req")
-                        resolve(url_arr);
-                        post_user_products(e, url_arr);}
-                 })
+                     resolve( url)        
+             })
                })
+        })
+      
+
+           
+    }
+
+    // on form submit add details o user profilr
+      async function getToSellProductDetails(e) {
+        e.preventDefault();
+        setrecord_added(false);
+        if (e.target.sellPrdCategory.value !== 'Choose a category') {
+            // setting product name
+            setSellPrddetails({'sellPrdname' : e.target.sellPrdname.value})
+            // calling firebase storage and storing images
+              // loading bulk of images :
+           
+             let url_arr = []
+            for(let i = 0; i < e.target.files.files.length ; i++){
+              console.log("in for function the i is", i)
+             var imagefile = e.target.files.files[i];
+             console.log(" now the image file is ..", imagefile);
+             console.log('the name of the file is ', imagefile.name);
+
+           
+            // we made reference need to upload it now using uploadbytes
+            let url = await addImages(imagefile)
+            console.log("the url is ", url)
+            url_arr.push(url)
             }
-            })
+            console.log("the url array is ", url_arr);
+            post_user_products(e,url_arr);
             
             setErrorFlag(false);
         } else {
