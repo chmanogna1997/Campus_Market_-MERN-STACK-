@@ -45,7 +45,8 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
     // useffect to make a async call : conditional rerender
     useEffect(() => {
 
-    
+       console.log("in display products useeffect");
+
         setproductDetails('');
         console.log("the details are in display prd section ....", details)
         let searchItem = null;
@@ -70,10 +71,8 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
        }
        fetch_Products();
     },
-    [selectedProduct]
+    [selectedProduct, details]
     )
-
-    
 
 return(
     <Fragment>
