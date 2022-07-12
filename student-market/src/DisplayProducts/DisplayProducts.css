@@ -22,17 +22,28 @@
     width: 18rem;
 }
 .product_link img {
-    width: 11rem;
-    height: 8rem;
+    width: 13rem;
+    height: 9rem;
 
-    margin-left: auto;
+    margin-left: 1.2rem;
     margin-right: auto;
+}
+.user_details{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-size: 14px;
+    color: rgba(0,47,52,.64);
 }
 .each_prd_details{
     display: flex;
     flex-direction: column;
 
     padding-left: 1rem;
+
+    text-align: left;
 }
 .product_list li {
     border: 1px solid rgba(14,4,5,.2);

@@ -13,7 +13,7 @@ import { async } from '@firebase/util';
 
 function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selectedProduct,setSelectedProduct}){
 
-    const[productDetails, setproductDetails] = useState();
+    const[productDetails, setproductDetails] = useState(null);
 
     const [errorFlag, setErrorFlag] = useState(false);
 
@@ -25,6 +25,19 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
             navigate('/SigninLogin');
         }else{
             console.log("in else");
+
+            var old_bookmarks = [];
+            console.log("the details are", details);
+            old_bookmarks = details.bookmarks
+            console.log("the old bokmarks are ", old_bookmarks)
+            console.log("adding ", e._id )
+            // old_bookmarks[0] = e._id;
+
+            console.log("after adding the bookmarks ", old_bookmarks )
+            console.log("The details are", details.Email);
+            setdetails({...details, bookmarks : old_bookmarks.push(e._id)})
+
+            console.log("the detaisl are after adding ..", details)
             
         }
     }
@@ -39,30 +52,17 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
            let response =  await fetch(url)
            let record = await response.json();
            // setting the values
+           console.log("the record is ", record);
            setproductDetails(record);
            setErrorFlag(false)
-           console.log("the record is ", record);
+           
        }
        fetch_Products();
     },
     [selectedProduct]
     )
 
-    // useEffect(() => {
-    //     setproductDetails('')
-    //     fetchPrdDetails(selectedProduct)
-    //     .then((output) => {
-    //         setproductDetails(output);
-    //         setErrorFlag(false)
-    //     })
-    //     .catch((error) => {setErrorFlag(true)})
-    // },
-    // [selectedProduct]
-    // )
-    function toBase64(data) {
-        //arr = new Uint8Array(arr) if it's an ArrayBuffer
-        return Buffer.from(data).toString('base64')
-     }
+    
 
 return(
     <Fragment>
@@ -83,31 +83,28 @@ return(
         <ul className='product_list'>
             { productDetails.map(e =>             
                 {
-                    console.log("the image data is >>> ", e.imageData)
-                    // let base64String = Buffer.from(e.imageData[0],'base64')
-                    // console.log("the base64String is ::: ", base64String);
-                    
-                  
-                //    let binary = Buffer.from(e.imageData[0]);
-                //    console.log("the data is ", e.imageData[0])
-                //    let imgData = new Blob([binary.buffer],{type:'image/png'})
-                // //    type: 'image/bmp'
-                //    let link = URL.createObjectURL(imgData);
-                //    let f_link = URL.revokeObjectURL(link)
-                //    console.log("the link is ::::::: ", link)
-                // // let type = "image/jpeg"
-                // // let link = (`data:${type};base64,${Buffer.from(e.imageData[0]).toString('base64')}`)
-                // // console.log("the link is ", link)
+                    //console.log("the  data is >>> ", e)
+                    //console.log("the todays date is ", new Date());
+                    //console.log("inserion date is ", new Date(e.insertionDate) )
+                    var diffDays = parseInt((new Date() - new Date(e.insertionDate)) / (1000 * 60 * 60 * 24), 10); 
+                    //console.log("the diff1 date is ", diffDays);
+                    var productTime = "";
+                    if(diffDays === 0 ){
+                        productTime  = "Today"
+                    }
                     return( 
                         <li key={e._id} className='product_section'>
                             <a  className = 'product_link' href='#'>
-                                {/* <img src={e.imageData[0]} alt = {e.sellPrdName}></img> */}
-                                <img src={`imageUrl`} alt = {e.sellPrdName} width="300"></img>
+  
+                                <img src={e.imageFile[0]} alt = {e.sellPrdName} width="300"></img>
                                 <div className = 'each_prd_details'>
-                                    <span className='product_price'>{e.sellPrdPrice}</span>
+                                    <span className='product_price'> $ {e.sellPrdPrice}</span>
                                     <span className='product_title'>{e.sellPrdName}</span>
-                                    <span className='product_description'>{e.sellPrdDescrpt}</span>
+                                    <span className='product_university'>{e.university}</span>
+                                    <div className='user_details'>
                                     <span className='product_email'>{e.Email}</span>
+                                    <span> {productTime}</span>
+                                    </div>
                                 </div>
                             </a>
                             <span className='bookmark_section'>

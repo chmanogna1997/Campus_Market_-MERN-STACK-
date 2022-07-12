@@ -9,10 +9,6 @@ const dbo = require("../db/dbconn");
 //  *********************************************************************
 //getting sell product details
 Router.route("/sellProducts").post(function(req,res){
-    console.log("in req body..... sell prds")
-    console.log("the req is ", req.body);
-
-
      let myObj = {
          Email : req.body.Email,
          university : req.body.university,
@@ -20,7 +16,8 @@ Router.route("/sellProducts").post(function(req,res){
          sellPrdDescrpt : req.body.sellPrdDescrpt,
          sellPrdPrice : req.body.SellPrdPrice,
         sellPrdCategory : req.body.sellPrdCategory,
-        imageFile : req.body.imageFile
+        imageFile : req.body.imageFile,
+        insertionDate : new Date()
      }
 
      var collection = (req.body.sellPrdCategory).toLowerCase();
@@ -69,7 +66,7 @@ Router.route("/product/:category/:university").get(function(req,res){
     .find({})
     .toArray(function(err, out){
         if (err) throw err;
-        // console.log("the output is", out);
+        //  console.log("the output is", out);
         res.json(out);
     });
     // res.send("boom hello hello");

@@ -146,12 +146,14 @@ function SignIn_login({ details, setdetails, accessFlag, setaccessFlag, selected
         if(record === null){setErrorFlag({'login_user_invalid' : true});}
         else{
             if(record.Email=== email && record.pwd === pwd){
+                console.log("checking setting bookmarks", record.userBookmarks)
                 setdetails( {
                     pwd: record.pwd,
                     Fname: record.FName,
                     LName: record.LName,
                     Email: record.Email,
-                    university: record.university
+                    university: record.university,
+                    bookmarks : record.userBookmarks
             });
                 setaccessFlag(true);
                 navigate('/Home');
