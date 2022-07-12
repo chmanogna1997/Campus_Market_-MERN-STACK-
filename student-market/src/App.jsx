@@ -21,7 +21,9 @@ function App() {
     LName : null,
     Email : null,
     university : null,
-    bookmarks : []
+    bookmarks : [],
+    searchItem : null,
+    searchFlag : false
   });
 
   return (

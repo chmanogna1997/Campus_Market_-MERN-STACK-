@@ -58,15 +58,26 @@ Router.route("/sellProducts").post(function(req,res){
 // **************************************************************************
 //  get request : to get the products
 Router.route("/product/:category/:university").get(function(req,res){
-    console.log("books :: ", req.params.category , req.params.university)
+    console.log("in products", req.params.category , req.params.university)
     var collection = (req.params.category).toLowerCase()
+    var university = (req.params.university).toLowerCase()
+    let query = {}
+    console.log("the university params is ", university, (university != null))
+    if(university != 'null'){
+        console.log("the university parameters are not null")
+          query = {university : university}
+        }
+          else{ 
+              console.log("the university parameters are null")
+              query = {} }
+    console.log("the query is ", query);
     console.log("the collection", collection)
     dbo.getDb("campus_market")
     .collection(collection)
-    .find({})
+    .find(query)
     .toArray(function(err, out){
         if (err) throw err;
-        //  console.log("the output is", out);
+        // console.log("the output is", out);
         res.json(out);
     });
     // res.send("boom hello hello");
