@@ -2,11 +2,9 @@ import React, { Fragment, useState, useEffect } from 'react';
 import './DisplayProducts.css';
 import { fetchPrdDetails } from '../fake-services/services';
 import Spinner from '../Spinner/Spinner'
-import i from '../images/h1.jpg'
 import HeadComponent from '../Header/Header';
 import Foot from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
-import {Buffer} from 'buffer'
 import { async } from '@firebase/util';
 
 
@@ -31,8 +29,7 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
             old_bookmarks = details.bookmarks
             console.log("the old bokmarks are ", old_bookmarks)
             console.log("adding ", e._id )
-            // old_bookmarks[0] = e._id;
-
+            
             console.log("after adding the bookmarks ", old_bookmarks )
             console.log("The details are", details.Email);
             setdetails({...details, bookmarks : old_bookmarks.push(e._id)})
@@ -83,15 +80,20 @@ return(
         <ul className='product_list'>
             { productDetails.map(e =>             
                 {
-                    //console.log("the  data is >>> ", e)
-                    //console.log("the todays date is ", new Date());
-                    //console.log("inserion date is ", new Date(e.insertionDate) )
-                    var diffDays = parseInt((new Date() - new Date(e.insertionDate)) / (1000 * 60 * 60 * 24), 10); 
-                    //console.log("the diff1 date is ", diffDays);
                     var productTime = "";
-                    if(diffDays === 0 ){
-                        productTime  = "Today"
-                    }
+                    var insert_date = new Date(e.insertionDate);
+                    
+                    var diffDays = (Math.abs(new Date() - insert_date))
+                     if((diffDays/ (1000 * 60 * 60)) <= 24){ productTime  = "Today";}
+                     else if(((diffDays/ (1000 * 60 * 60)) > 24) && ((diffDays/(1000 * 60 * 60* 24)) <= 7)){
+                         productTime = Math.floor((diffDays/(1000 * 60 * 60 *24)),10) + " days ago";
+                     }
+                     else if(((diffDays/(1000 * 60 * 60* 24)) > 7)  && ((diffDays/(1000 * 60 * 60 *24 * 7)) <= 4) ){
+                        productTime = Math.floor((diffDays/(1000 * 60 * 60 *24 * 7)),10) + " weeks ago";
+                     }
+                     else{
+                       productTime = Math.floor((diffDays/(1000 * 60 * 60 *24 * 7 * 4)),10) + " months ago"
+                     }
                     return( 
                         <li key={e._id} className='product_section'>
                             <a  className = 'product_link' href='#'>
