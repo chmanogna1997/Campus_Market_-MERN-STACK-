@@ -141,12 +141,12 @@ function SignIn_login({ details, setdetails, accessFlag, setaccessFlag, selected
         const response = await fetch(`http://localhost:1000/checkLogin/${email}`)
         let record = await response.json();
 
-        console.log("the logged in user records are ", record)
+       // console.log("the logged in user records are ", record)
 
         if(record === null){setErrorFlag({'login_user_invalid' : true});}
         else{
             if(record.Email=== email && record.pwd === pwd){
-                console.log("checking setting bookmarks", record.userBookmarks)
+               // console.log("checking setting bookmarks", record.userBookmarks)
                 setdetails( {
                     pwd: record.pwd,
                     Fname: record.FName,
