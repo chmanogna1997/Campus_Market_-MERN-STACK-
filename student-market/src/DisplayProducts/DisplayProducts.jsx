@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import './DisplayProducts.css';
-import { fetchPrdDetails } from '../fake-services/services';
+//import { fetchPrdDetails } from '../fake-services/services';
 import Spinner from '../Spinner/Spinner'
 import HeadComponent from '../Header/Header';
 import Foot from '../Footer/Footer';
 import { useNavigate } from 'react-router-dom';
-import { async } from '@firebase/util';
+//import { async } from '@firebase/util';
 
 
 
@@ -14,41 +14,42 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
     const[productDetails, setproductDetails] = useState(null);
 
     const [errorFlag, setErrorFlag] = useState(false);
-    //const [bookmarkFlag, setBookmarkFlag] = useState(null);
 
-    const [bookmarks, setBookmarks] = useState([]);
+    const [bookmarks, setBookmarks] = useState(details.bookmarks);
 
     let navigate = useNavigate();
    
 
     function likeFlag(e){
-        // console.log("in bookmarks flag", e)
+
         if(details.Email === null){
             navigate('/SigninLogin');
-        }else{
-            // console.log("in else");
-            if(bookmarks.includes(e._id)){  
-                // console.log("in removing items")
-                setBookmarks(bookmarks.filter(item => item !== e._id))
-                }
-            else{ 
-                // console.log("In elese of bookmarks flag")
-                setBookmarks(arr => [...arr,e._id]); 
-        }   
+        } else  {
+            if(bookmarks.includes(e._id)) {  setBookmarks(bookmarks.filter(item => item !== e._id)) }
+            else{ setBookmarks(arr => [...arr,e._id]); }   
         }
-        
-        setdetails(details => ({
-            ...details, bookmarks
-        }))
+     setdetails(details => ({ ...details, bookmarks }))
+    }
+
+    async function update_bookmarks(){
+      const response = await fetch("http://localhost:1000/updateBookmarks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            Email : details.Email,
+            bookmarks : bookmarks
+        }),
+      });
     }
 
     // useffect to make a async call : conditional rerender
     useEffect(() => {
 
-       console.log("in display products useeffect");
-
         setproductDetails('');
-        console.log("the details are in display prd section ....", details)
+// doung this to send bookmarks
+if(bookmarks !== details.bookmarks){ update_bookmarks();}
         let searchItem = null;
         if(details.searchFlag && details.searchItem !== null){ searchItem = details.searchItem}
       
@@ -56,18 +57,11 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
           let url = null;
            if(selectedProduct === null){   url = `http://localhost:1000/product/books/${searchItem}` }
            else{  url = `http://localhost:1000/product/${selectedProduct}/${searchItem}`;}
-
-             // resetting the search flags, items
-        // setdetails(details => ({...details, searchItem : null, searchFlag : false}));
-           
-           console.log("the url is ", url);
            let response =  await fetch(url)
            let record = await response.json();
-           // setting the values
-          // console.log("the record is ", record);
-           setproductDetails(record);
-           setErrorFlag(false)
-           
+            console.log("fetching items in displayprds ", record);
+          if(record.length !== 0){setproductDetails(record)}
+           setErrorFlag(false);
        }
        fetch_Products();
     },
@@ -85,20 +79,28 @@ return(
                                setSelectedProduct = {setSelectedProduct}
                                />
         </header>
+ 
+        {console.log("the bookmarks are ", bookmarks)}
+
+        {console.log("the details are ", details)}
+
+
+
         {
         errorFlag && <div className='no_data'> NO DATA !!! </div>
     }
         {!productDetails && !errorFlag && <div> <Spinner></Spinner></div>}
      { productDetails && !errorFlag && <div className='display_products'>
-        <ul className='product_list'>
-        {/* {console.log(bookmarks)} */}
-        {/* {console.log("the details are", details)} */}
-            { productDetails.map(e =>             
+        <ul className='product_list'>          
+           {productDetails === "NoProducts" && <div className='NoPrdErr'>No Products found !!!! </div>}
+            {productDetails !== "NoProducts" &&  productDetails.map(e =>             
                 {
                     // ------------------------------------------------------------------------------------------
 
                     let bookmark_style = false;
                     if(bookmarks.includes(e._id)){bookmark_style = true; }
+
+                   
                     // --------------------------------------------------------------------------------------------
                    
                     var productTime = "";
@@ -115,20 +117,22 @@ return(
                        productTime = Math.floor((diffDays/(1000 * 60 * 60 *24 * 7 * 4)),10) + " months ago"
                      }
                      //------------------------------------------------------------------------------------------------
+                     
                     return( 
                         <li key={e._id} className='product_section'>
                             <a  className = 'product_link' href='#'>
   
                                 <img src={e.imageFile[0]} alt = {e.sellPrdName} width="300"></img>
                                 <div className = 'each_prd_details'>
-                                    <span className='product_price'> $ {e.sellPrdPrice}</span>
+                                    <span className='product_price'>
+                                         { (Number(e.sellPrdPrice)).toLocaleString(undefined,{maximumFractionDigits:2 }) }
+                                         </span>
                                     <span className='product_title'>{e.sellPrdName}</span>
                                     <span className='product_university'>{e.university}</span>
                                     <div className='user_details'>
                                     <span className='product_email'>{e.Email}</span>
                                     <span> {productTime}</span>
-                                    <span>{bookmarks}</span> 
-                                    </div>
+                                     </div>
                                 </div>
                             </a>
                             <span className='bookmark_section'>
@@ -146,7 +150,7 @@ return(
             
         </ul>
 
-        <button className='load_more_Btn'>Load More</button>
+        {  productDetails !== "NoProducts" && < button className='load_more_Btn'>Load More</button>}
 
     </div>}
     <footer>

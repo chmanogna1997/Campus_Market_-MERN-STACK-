@@ -7,6 +7,14 @@
 .no_bookmark{
     fill: silver;
 }
+.NoPrdErr{
+    color: red;
+    font-size: xxx-large;
+    padding: 5rem;
+    left: auto;
+    right: auto;
+    width: 80%;
+}
 .display_products{
     margin-bottom: 0.5rem;
     text-align: center;

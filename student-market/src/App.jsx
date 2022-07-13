@@ -11,9 +11,10 @@ import Profile from './UserProfile/UserProfile';
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
- // access state
+// access state
   const [accessFlag, setaccessFlag] = useState(false); 
-  // user details
+
+// user details
   const [details, setdetails] = useState(
     {
     pwd: null,

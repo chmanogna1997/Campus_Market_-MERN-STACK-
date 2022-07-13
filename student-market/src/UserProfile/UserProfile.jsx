@@ -8,6 +8,7 @@ import HeadComponent from '../Header/Header';
 function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedProduct, setSelectedProduct }) {
     return (
         <Fragment>
+            {console.log("Boom la la la la ", details)}
             <header>
                 <HeadComponent details={details}
                     setdetails={setdetails}

@@ -6,6 +6,27 @@ const Router = express.Router();
 // this will connect to database
 const dbo = require("../db/dbconn");
 
+//****************************************************************************
+// get user profile
+Router.route("/bookmarks/:email").get(function(req,res){
+//    let myquery = {Email: req.params.email}
+  console.log("in bookmarks tio get bookmarks")
+
+})
+
+// ************************************************************************
+// lets update bookmark details
+
+Router.route("/updateBookmarks").post(function(req,res){
+    console.log("in update bookmarks post request", req.body)
+    dbo.getDb("campus_market")
+    .collection("User_details")
+    .findOneAndUpdate({Email : req.body.Email}, {$set : {userBookmarks : req.body.bookmarks} , $currentDate: { lastModified: true }}, function(err,result){
+        //console.log("the result in find and update is ", result);
+        if(err){ throw err}
+        res.json({"output" : result.lastErrorObject.updatedExisting})
+    })
+})
 //  *********************************************************************
 //getting sell product details
 Router.route("/sellProducts").post(function(req,res){
@@ -44,43 +65,41 @@ Router.route("/sellProducts").post(function(req,res){
                             res.json(updated)
                         }
                     }
-                    
-                    )
+                )
             }
          }
      })
 
-})
-
-
-
+});
 
 // **************************************************************************
 //  get request : to get the products
 Router.route("/product/:category/:university").get(function(req,res){
-    console.log("in products", req.params.category , req.params.university)
+    //console.log("in products", req.params.category , req.params.university)
     var collection = (req.params.category).toLowerCase()
     var university = (req.params.university).toLowerCase()
     let query = {}
-    console.log("the university params is ", university, (university != null))
+    //console.log("the university params is ", university, (university != null))
     if(university != 'null'){
-        console.log("the university parameters are not null")
+        //console.log("the university parameters are not null")
           query = {university : university}
         }
           else{ 
-              console.log("the university parameters are null")
+              //console.log("the university parameters are null")
               query = {} }
-    console.log("the query is ", query);
-    console.log("the collection", collection)
+    //console.log("the query is ", query);
+    //console.log("the collection", collection)
     dbo.getDb("campus_market")
     .collection(collection)
     .find(query)
     .toArray(function(err, out){
         if (err) throw err;
-        // console.log("the output is", out);
-        res.json(out);
+         //console.log("the output is", out);
+         if(out.length === 0){
+             res.json("NoProducts");
+         }else{ res.json(out);}
+       
     });
-    // res.send("boom hello hello");
 })
 
 
@@ -98,25 +117,25 @@ Router.route("/get").get(function(req,res) {
 
 // checking login credentials 
 Router.route("/checkLogin/:email").get(function(req,res){
-    console.log("in check login route", req.params.email)
+    //console.log("in check login route", req.params.email)
     let myquery = {Email: req.params.email}
-    console.log("my query is ", myquery);
+   // console.log("my query is ", myquery);
     dbo.getDb("campus_market")
     .collection("User_details")
     .findOne(myquery, function(err,result){
         if(err) {throw err;}
-        console.log(" the result is ", result)
+       // console.log(" the result is ", result)
         res.json(result)
     })
 })
 
 // reset password
 Router.route("/resetPwd").post(function(req,res){
-    console.log("in reset password post request", req.body)
+    //console.log("in reset password post request", req.body)
     dbo.getDb("campus_market")
     .collection("User_details")
     .findOneAndUpdate({Email : req.body.Email}, {$set : {pwd : req.body.pwd} , $currentDate: { lastModified: true }}, function(err,result){
-        console.log("the result in find and update is ", result.lastErrorObject.updatedExisting);
+       // console.log("the result in find and update is ", result.lastErrorObject.updatedExisting);
         if(err){ throw err}
         res.json({"output" : result.lastErrorObject.updatedExisting})
     })
@@ -124,7 +143,7 @@ Router.route("/resetPwd").post(function(req,res){
 
 // // adding new user
 Router.route("/adduser").post(function(req,res){
-    console.log("in adding the user");
+    //console.log("in adding the user");
     // console.log(" in post request ", req.body)
     let myquery = { Email: req.body.Email};
     // console.log("myquery is ", myquery);

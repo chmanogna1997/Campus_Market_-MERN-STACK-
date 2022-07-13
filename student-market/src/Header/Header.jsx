@@ -35,7 +35,8 @@ function Header({details, setdetails, accessFlag, setaccessFlag, setSelectedProd
     'Fname' : null,
     'LName' : null,
     'Email' : null,
-    'university' : null
+    'university' : null,
+    'bookmarks' : []
   });
   navigate('/Home');
     }
