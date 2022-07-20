@@ -87,11 +87,11 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
         return new Promise(resolve => {
             const imageRef = ref(storage,`images/${imagefile.name + v4()}`);
             uploadBytes(imageRef, imagefile).then((response) => {
-                console.log("the reference is ", response);
-                console.log("the image is uploaded", response.ref);
-                console.log("the values are ", response.metadata.name);
+                //console.log("the reference is ", response);
+                //console.log("the image is uploaded", response.ref);
+                //console.log("the values are ", response.metadata.name);
                  var full_path = response.metadata.fullPath;
-                 console.log("the full path is ::: ", full_path)
+                // console.log("the full path is ::: ", full_path)
                  var get_storage = getStorage();
                  getDownloadURL(ref(get_storage, full_path))
                  .then((url) => {
@@ -116,18 +116,18 @@ function TipsToSell({ details, setdetails, accessFlag, setaccessFlag, selectedPr
            
              let url_arr = []
             for(let i = 0; i < e.target.files.files.length ; i++){
-              console.log("in for function the i is", i)
+             // console.log("in for function the i is", i)
              var imagefile = e.target.files.files[i];
-             console.log(" now the image file is ..", imagefile);
-             console.log('the name of the file is ', imagefile.name);
+             //console.log(" now the image file is ..", imagefile);
+             //console.log('the name of the file is ', imagefile.name);
 
            
             // we made reference need to upload it now using uploadbytes
             let url = await addImages(imagefile)
-            console.log("the url is ", url)
+            //console.log("the url is ", url)
             url_arr.push(url)
             }
-            console.log("the url array is ", url_arr);
+           // console.log("the url array is ", url_arr);
             post_user_products(e,url_arr);
             
             setErrorFlag(false);

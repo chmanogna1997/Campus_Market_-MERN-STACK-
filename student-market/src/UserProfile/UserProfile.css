@@ -1,6 +1,185 @@
-.account{
+/* dialog box css  */
+.dialog_box_section{
+    display: flex;
+    justify-content: center;
+    inset: 0;
+
+    outline: none;
+    z-index: 17;
+}
+.dialog_box{
+    width: 30rem;
+    background: white;
+
+    margin: 1rem;
+    padding: 2rem;
+    box-shadow: rgb(0 0 0 / 50%) 0px 3px 9px;
+    border-radius: 3px;
+}
+.dialog_resetpwd_label{
+    display: flex;
+    justify-content: space-around;
+}
+
+.resetPwd_btn{
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: white;
+    background: #009900;
+    border: none;
+    padding: 6px;
+}
+.resetPwd_btn :hover{
+    transform: scale(1.2);
+}
+/* styling bookmark */
+.bookmarks{
+    border-bottom: 1px solid grey;
+}
+.bookmark_prd_desc{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.bookmark_prds{
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+
+    grid-area: bookmark_prds;
+
+    margin-bottom: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid lightgrey;
+    
+}
+ .bookmark_prds_section:last-child div  {
+    border: none !important;
+} 
+.heading{
+    margin-left : 2.8rem;
+}
+.bookmark_prds_section{
+    display: grid;
+    grid-template-columns: 4% 60% 20%;
+    grid-template-areas: ". bookmark_prds .";  
+}
+.bookmark_image{
+    width: 14rem;
+}
+.price_symbol{
+    position: relative;
+    font-size: 14px;
+    top: -5px;
+}
+.price_whole_num{
+font-size: 21px;
+}
+.price_decimal{
+    position: relative;
+    font-size: 14px;
+    top: -5px;
+}
+.bookmarks_headings{
+    font-size: 1rem;
+    font-weight: bold;
+}
+.bookmark_heading_result{
+    margin-left: 0.1rem;
+    font-size: x-large;
+}
+.bookmark_price_result{
+    margin-left: 2.8rem;
+}
+.bookmark_university_result{
+    margin-left: 0.6rem;
+}
+.bookmark_email_result{
+    margin-left: 2.7rem;
+}
+
+/* pointer */
+.edit_btn :hover{
+    font-size: large;
+
     border: 1px solid grey;
-    box-shadow: 3px 2px 12px grey;
+    padding: 8px;
+    box-shadow: 3px 3px 3px grey;
+
+}
+.edit_btn{
+
+    cursor: pointer;
+
+    font-size: medium;
+    color: darkblue;
+    background: transparent;
+
+    border:none;
+
+}
+
+
+/* sell product section  */
+.sell_history{
+    margin-bottom: 5rem;
+}
+.user_prds_section{
+    display: grid;
+    grid-template-columns: 4% 32% 38% 10%;
+    grid-template-areas: ". sellPrdImg sellPrdDetails sellPrdEdit sellPrdDeleteBtn";
+
+    margin-bottom: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid lightgrey;
+}
+.user_prds_section:last-child{
+    border: none !important;
+}
+.usersellPrds_img {
+    grid-area: sellPrdImg;
+}
+.UsersellPrds_details{
+grid-area: sellPrdDetails;
+
+margin-bottom: auto;
+margin-top: auto;
+
+display: flex;
+flex-direction: column;
+gap: 0.1rem;
+
+}
+.userSellPrds_add_edit{
+ grid-area: sellPrdEdit;
+
+ cursor: pointer;
+}
+
+.userSellPrds_btn{
+
+grid-area: sellPrdDeleteBtn;
+
+}
+.userSellPrds_btn button{
+    border: none;
+    background-color: transparent;
+    font-size: medium;
+    color: red;
+
+    cursor: pointer;
+    padding: 5px;
+}
+.userSellPrds_btn button:hover{
+    border: 1px solid red;
+}
+
+
+
+
+
+.account{
+    border-bottom: 1px solid grey;
+    /* box-shadow: 3px 2px 12px grey; */
     padding:1rem;
 }
 .profile_section{
@@ -14,13 +193,13 @@
 .account{
     display:grid;
     grid-template-columns: 4% 60% 20%;
-    grid-template-areas: ". details ad_edit";
+    grid-template-areas: ". details add_edit";
 }
 .details{
     grid-area: details;
 }
-.ad_edit{
-    grid-area: ad_edit;
+.add_edit{
+    grid-area: add_edit;
 
     padding: 0.8rem;
 }

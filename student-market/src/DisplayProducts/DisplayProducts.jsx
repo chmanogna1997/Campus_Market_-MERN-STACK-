@@ -21,12 +21,24 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
    
 
     function likeFlag(e){
-
+        
         if(details.Email === null){
             navigate('/SigninLogin');
         } else  {
-            if(bookmarks.includes(e._id)) {  setBookmarks(bookmarks.filter(item => item !== e._id)) }
-            else{ setBookmarks(arr => [...arr,e._id]); }   
+
+            let my_bookmark = {'id' : e._id, "category" : e.sellPrdCategory}
+            // console.log("checking bookmark includes", bookmarks.includes(my_bookmark))
+            let isFound = bookmarks.some(i => {
+                if(i.id === e._id ){ return true; } else { return false; }
+            })
+
+
+            if(isFound) { 
+                 setBookmarks(bookmarks.filter(item => item.id !== e._id))
+             }
+            else{ 
+                setBookmarks(arr => [...arr,my_bookmark]); 
+            }   
         }
      setdetails(details => ({ ...details, bookmarks }))
     }
@@ -59,7 +71,7 @@ if(bookmarks !== details.bookmarks){ update_bookmarks();}
            else{  url = `http://localhost:1000/product/${selectedProduct}/${searchItem}`;}
            let response =  await fetch(url)
            let record = await response.json();
-            console.log("fetching items in displayprds ", record);
+            // console.log("fetching items in displayprds ", record);
           if(record.length !== 0){setproductDetails(record)}
            setErrorFlag(false);
        }
@@ -80,11 +92,8 @@ return(
                                />
         </header>
  
-        {console.log("the bookmarks are ", bookmarks)}
-
-        {console.log("the details are ", details)}
-
-
+        {/* {console.log("the bookmarks are ", bookmarks)} */}
+        {/* {console.log("the details are ", details)} */}
 
         {
         errorFlag && <div className='no_data'> NO DATA !!! </div>
@@ -98,7 +107,10 @@ return(
                     // ------------------------------------------------------------------------------------------
 
                     let bookmark_style = false;
-                    if(bookmarks.includes(e._id)){bookmark_style = true; }
+                    let bookmarkFlag = bookmarks.some(i => {
+                        if(i.id === e._id ){ return true; } else { return false; }
+                    })
+                    if(bookmarkFlag){bookmark_style = true; }
 
                    
                     // --------------------------------------------------------------------------------------------
@@ -125,7 +137,7 @@ return(
                                 <img src={e.imageFile[0]} alt = {e.sellPrdName} width="300"></img>
                                 <div className = 'each_prd_details'>
                                     <span className='product_price'>
-                                         { (Number(e.sellPrdPrice)).toLocaleString(undefined,{maximumFractionDigits:2 }) }
+                                         $ { (Number(e.sellPrdPrice)).toLocaleString(undefined,{maximumFractionDigits:2 }) }
                                          </span>
                                     <span className='product_title'>{e.sellPrdName}</span>
                                     <span className='product_university'>{e.university}</span>
