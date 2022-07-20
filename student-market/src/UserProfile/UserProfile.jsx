@@ -9,8 +9,8 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
 
     const [userBookmarks, setUserBookmarks] = useState([]);
     const [userSellPrds, setUserSellPrds] = useState([]);
-    const [recordDeleted, setRecordDeleted] = useState(false)
-    const [resetPwd, setResetPwd] = useState(true)
+    const [recordDeleted, setRecordDeleted] = useState(false);
+    const [resetPwd, setResetPwd] = useState(false);
 
     // useeffect to get bookmarks of products
     useEffect(() => {
@@ -53,13 +53,40 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
       else{ setRecordDeleted(false); }
     }
 
-    async function resetPwdfunc(){
-        console.log("in reset pwd function");
+    function resetPwdfunc(){
         setResetPwd(true);
+    }
+       
+    function  closeDialog(){
+        setResetPwd(false);
+    }
+
+    function modal(){
+        return(
+            <Fragment>
+                    <div className= {resetPwd ? 'dialog_box_close dialog_box_open' : 'dialog_box_close' }  id='reset_modal'>
+                   <div className='dialog_close_btn'> <button onClick={() => closeDialog()} >&times;</button></div>
+                    <div className='dialog_heading'>
+                        <h1>Reset Password</h1>
+                    </div>
+
+                       <form>
+                           <label className='dialog_resetpwd_label'>Old Password : <input required name='OldPwd'></input></label>
+                           <label className='dialog_resetpwd_label' >New Password : <input required name='NewPwd'></input></label>
+                           <button  type='submit' className='dialog_resetpwd_btn' >Reset Password</button>
+                       </form>
+
+                    </div>
+                    <div className= {resetPwd ? 'overlay_btn_open' : 'overlay_btn_close' } ></div>
+                    
+            </Fragment>
+        )
     }
 
     return (
         <Fragment>
+
+            {modal()}
             {/* {console.log("Boom la la la la ", details)} */}
             {/* {console.log("bookmarks are ", userBookmarks)} */}
             <header>
@@ -72,19 +99,7 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                 />
             </header>
             <main>
-                <div className='dialog_box_section' >
-                    {resetPwd && 
-                    <div className='dialog_box'>
-                       <form>
-
-                           <label className='dialog_resetpwd_label'>Old Password : <input required name='OldPwd'></input></label>
-                           <label className='dialog_resetpwd_label' >New Password : <input required name='NewPwd'></input></label>
-                           <button  type='submit' className='dialog_resetpwd_btn' >Reset Password</button>
-                       </form>
-                    </div>
-                    }
-                
-               {/* { !resetPwd && */}
+               
                 <div className='user_profile_section'>
                     <div className='profile_section'>
                         <div className='account'>
@@ -96,7 +111,7 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                                 <div> <span>University :</span> <span className='university'>{details.university}</span> </div>
                             </div>
                             <div className='add_edit'>
-                            <button className="resetPwd_btn" onClick={()=> resetPwdfunc()}>  Reset Password </button>
+                            <button className="resetPwd_btn" onClick={() => resetPwdfunc()}>  Reset Password </button>
                             </div>
                         </div>
                         <div className='bookmarks'>
@@ -140,8 +155,7 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                                         </div>
                                     </div> 
                                     }
-                                    </Fragment>
-                                    
+                                    </Fragment> 
                                 );
                             }
                             })
@@ -189,10 +203,6 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                             }
                         </div>
                     </div>
-                </div>
-
-                {/* } */}
-
                 </div>
             </main>
             <footer>

@@ -1,24 +1,84 @@
 /* dialog box css  */
-.dialog_box_section{
+.overlay_btn_open{
+    position: fixed;
+    left:0%;
+    right:0%;
+    top:0%;
+    bottom:0%;
+    background-color: rgba(0,0,0,0.5);
+    opacity:1;
+    /* pointer-events: none; */
+    transition:  500ms ease-in-out;
+}
+
+.overlay_btn_close{
+  opacity:0;
+  pointer-events: none;
+}
+
+
+.dialog_close_btn button{
+    font-size: xx-large;
+    background-color: transparent;
+    color: red;
+    border: none;
+}
+.dialog_close_btn{
+    display: flex;
+    justify-content: flex-end;
+}
+.dialog_heading h1 {
     display: flex;
     justify-content: center;
-    inset: 0;
-
-    outline: none;
-    z-index: 17;
 }
-.dialog_box{
+
+.dialog_heading{
+    display: flex;
+    justify-content: center;
+}
+
+/* dialog box  close intially */
+
+.dialog_box_close{
     width: 30rem;
     background: white;
 
     margin: 1rem;
-    padding: 2rem;
+    padding: 1rem;
     box-shadow: rgb(0 0 0 / 50%) 0px 3px 9px;
-    border-radius: 3px;
+    border-radius: 1rem;
+    border:1px solid grey;
+    background-color: white;
+
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    z-index: 10;
+
+    max-width: 80%;
+
+    transform: scale(0);
+    transition: 500ms ease-in-out;
 }
+
+/* dialog box open */
+.dialog_box_open {
+transform: scale(1) !important;
+}
+
 .dialog_resetpwd_label{
     display: flex;
     justify-content: space-around;
+}
+.dialog_resetpwd_btn{
+    width: 14rem;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    background: #009900;
+    line-height: 2rem;
+    font-size: 1.2rem;
+    border: none;
 }
 
 .resetPwd_btn{
