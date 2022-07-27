@@ -151,12 +151,13 @@ function getproduct_details(id, category) {
 
 
 Router.route("/updateBookmarks").post(function (req, res) {
-   // console.log("in update bookmarks post request", req.body)
+    //console.log("in update bookmarks post request", req.body)
+    //console.log("the email is ", req.body.Email)
     dbo.getDb("campus_market")
         .collection("User_details")
-        .findOneAndUpdate({ Email: req.body.Email }, { $set: { userBookmarks: req.body.bookmarks }, $currentDate: { lastModified: true } }, function (result, err) {
+        .findOneAndUpdate({ Email: req.body.Email }, { $set: { userBookmarks: req.body.bookmarks }, $currentDate: { lastModified: true } }, function (err,result) {
             //console.log("the result in find and update is ", result);
-            if (err) { throw err }
+            if (err) { res.json(err) }
             res.json({ "output": result.lastErrorObject.updatedExisting })
         })
 }) 
@@ -209,17 +210,17 @@ Router.route("/sellProducts").post(function (req, res) {
 // *************************************************************** get request : to get the products : to display *******************************************
 
 Router.route("/product/:category/:university").get(function (req, res) {
-    //console.log("in products", req.params.category , req.params.university)
+    console.log("in products", req.params.category , req.params.university)
     var collection = (req.params.category).toLowerCase()
     var university = (req.params.university).toLowerCase()
     let query = {}
     //console.log("the university params is ", university, (university != null))
     if (university != 'null') {
-        //console.log("the university parameters are not null")
+        console.log("the university parameters are not null")
         query = { university: university }
     }
     else {
-        //console.log("the university parameters are null")
+        console.log("the university parameters are null")
         query = {}
     }
     //console.log("the query is ", query);

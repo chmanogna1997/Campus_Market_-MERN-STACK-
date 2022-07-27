@@ -82,12 +82,11 @@ function Header({details, setdetails, accessFlag, setaccessFlag, setSelectedProd
                         <div> <span>University :</span> <span>{details.university}</span> </div>
                         </ReactTooltip> */}
                     </div>}
-                    {!accessFlag && <button><Link 
-                    className='link_to' 
-                    to = '/SigninLogin' 
-                    >Login</Link></button>}
+                    {!accessFlag && <button className='login_btn'>
+                    <Link className='link_to sell_login_btn' to = '/SigninLogin'> Login </Link></button>}
                     {accessFlag && <button className='logout_btn' onClick={ logout} >Logout</button>}
-                    <button><Link className='link_to' to = '/Sell' >Sell</Link></button>
+                    <button className='sell_btn'>
+                        <Link className='link_to sell_login_btn' to = '/Sell' >Sell</Link></button>
                     <button onClick={displayMenu} className='mobile_menubar'>&#9776;</button>
                 </div>
             </div>

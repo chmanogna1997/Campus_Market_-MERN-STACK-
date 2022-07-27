@@ -36,6 +36,8 @@
     font-weight: bold;
 
     padding-left: 0px;
+
+    cursor: pointer;
 }
 .sell_section{
     grid-area: sell; 

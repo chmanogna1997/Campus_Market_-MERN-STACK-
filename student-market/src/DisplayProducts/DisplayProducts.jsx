@@ -54,13 +54,15 @@ function DisplayProducts({details, setdetails, accessFlag, setaccessFlag,selecte
             bookmarks : bookmarks
         }),
       });
+
+      console.log("the response after bookmark is ", response);
     }
 
     // useffect to make a async call : conditional rerender
     useEffect(() => {
 
         setproductDetails('');
-// doung this to send bookmarks
+// doing this to send bookmarks
 if(bookmarks !== details.bookmarks){ update_bookmarks();}
         let searchItem = null;
         if(details.searchFlag && details.searchItem !== null){ searchItem = details.searchItem}

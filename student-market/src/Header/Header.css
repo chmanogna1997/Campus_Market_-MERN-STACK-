@@ -1,3 +1,12 @@
+
+
+.search_icon_svg:hover{ fill: blue !important; }
+.login_btn:hover{ background-color: #555555;}
+.login_btn a:hover{ color: white;}
+.sell_btn:hover{ background-color: #555555;  }
+.sell_btn a:hover{ color: white;  }
+.Account_btn:hover{color: chocolate;}
+
 .nav_items{
     display: flex;
     justify-content: space-around;
@@ -34,7 +43,7 @@ nav{
 .logo_section{
     margin-left: 7rem;
     margin-right: 5rem;
-    margin-top:1rem;
+    margin-top:0.5rem;
 
     display: flex;
     flex-direction: row;
@@ -46,22 +55,28 @@ nav{
 .logo{
     font-family: sans-serif;
     font-weight: bolder;
-    font-size: xx-large;
+    font-size: xx-large !important;
     color: blue;
 
     margin: 0%;
+
+    padding: 4px;
+    padding-left:10px;
+    padding-right:10px;
 }
+
+.logo_section > a:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
 .login_section{
     display: flex;
     gap: 1.5rem;
 }
+
 .login_section > button {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
     background-color: transparent;
-    font-size: medium;
+    font-size: 1.2rem;
     border-radius: 20px;
 }
 .mobile_menubar{
@@ -71,6 +86,10 @@ nav{
     color: -webkit-link;
     cursor: pointer;
     font-size: 1.2rem;
+}
+.sell_login_btn{
+    color: blue;
+    padding:1rem;
 }
 
 /* details section */
@@ -90,6 +109,10 @@ nav{
     background-color: transparent;
     font-size: 1.2rem;
     color: blue;
+
+    padding-top: 0.5rem;
+
+    cursor: pointer;
 }
 
 /* serach section */
@@ -103,11 +126,13 @@ nav{
     background: transparent;
     border: 1px solid black;
     border-left: 0px;
+
+    cursor: pointer;
 }
 .search_icon_svg{
     width: 1.7rem;
     margin: 2px;
-    fill: blue;
+    fill: #318CE7;
 }
 .search_input{
     width: 25rem;

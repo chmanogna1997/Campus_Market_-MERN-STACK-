@@ -233,7 +233,7 @@ function SignIn_login({ details, setdetails, accessFlag, setaccessFlag, selected
         <form onSubmit={check_login_credentials} >
             <input required name='login_email' placeholder='Enter Email' onBlur={validateEmail}></input>
             <input required name='login_pwd' type="password" placeholder='Enter Password'></input>
-            <button className='forgotPWD' onClick={() => setPwdModal_flag(true)}>Forgot Password?</button>
+            <button className='forgotPWD pwd' onClick={() => setPwdModal_flag(true)}>Forgot Password?</button>
             <button className='LoginBtn' type='submit'
                 aria-label='login'
             >Login</button>

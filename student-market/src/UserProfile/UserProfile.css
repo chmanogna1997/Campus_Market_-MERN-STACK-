@@ -68,7 +68,7 @@ transform: scale(1) !important;
 
 .dialog_resetpwd_label{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 .dialog_resetpwd_btn{
     width: 14rem;
@@ -79,6 +79,11 @@ transform: scale(1) !important;
     line-height: 2rem;
     font-size: 1.2rem;
     border: none;
+}
+.reset_dialog_error{
+    margin: auto;
+    color: red;
+    font-size: large;
 }
 
 .resetPwd_btn{
@@ -91,6 +96,9 @@ transform: scale(1) !important;
 }
 .resetPwd_btn :hover{
     transform: scale(1.2);
+}
+.dialog_resetpwd_label input{
+    width: 20rem;
 }
 /* styling bookmark */
 .bookmarks{

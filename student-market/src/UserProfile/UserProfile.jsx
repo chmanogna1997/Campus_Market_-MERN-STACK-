@@ -11,6 +11,11 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
     const [userSellPrds, setUserSellPrds] = useState([]);
     const [recordDeleted, setRecordDeleted] = useState(false);
     const [resetPwd, setResetPwd] = useState(false);
+    const [dialogBoxError , setdialogBoxError] = useState({
+        'pwd_mismatch_error' : false,
+        'pwd_error' :false,
+    });
+
 
     // useeffect to get bookmarks of products
     useEffect(() => {
@@ -46,19 +51,40 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
       let url = `http://localhost:1000/delete_user_sellprds/${id}/${category}/${details.Email}`;
       let response = await fetch(url);
       let records = await response.json();
-
-      console.log("the records deleted ", records)
-      
       if(records.acknowledged && records.deletedCount === 1){  setRecordDeleted(true); }
       else{ setRecordDeleted(false); }
     }
 
-    function resetPwdfunc(){
-        setResetPwd(true);
-    }
+    function resetPwdfunc(){ setResetPwd(true); }
        
-    function  closeDialog(){
-        setResetPwd(false);
+    function  closeDialog(){ setResetPwd(false); }
+
+    // now we are resetting the password
+    async function dialog_resetPwd(e){
+        e.preventDefault();
+   console.log("the details are ", details);
+   console.log("the events are", e.target.oldPwd.value, e.target.newPwd.value, e.target.newPwd_2.value)
+   // checking if new password and cofirm password are same or not
+   
+   if(e.target.oldPwd.value !== details.pwd){
+       console.log("setting incorrect pwd", dialogBoxError );
+       setdialogBoxError( {'pwd_error' : true});
+       e.target.oldPwd.value = "";
+       e.target.newPwd.value = "";
+       e.target.newPwd_2.value = "";
+
+   }else{
+    setdialogBoxError({'pwd_error' : false});
+   }
+
+   if(e.target.newPwd.value !== e.target.newPwd_2.value){
+    setdialogBoxError({'pwd_mismatch_error' : true})
+    e.target.newPwd.value = "";
+    e.target.newPwd_2.value = "";
+   }else{
+    setdialogBoxError({'pwd_mismatch_error' : false})
+   }
+
     }
 
     function modal(){
@@ -70,14 +96,23 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                         <h1>Reset Password</h1>
                     </div>
 
-                       <form>
-                           <label className='dialog_resetpwd_label'>Old Password : <input required name='OldPwd'></input></label>
-                           <label className='dialog_resetpwd_label' >New Password : <input required name='NewPwd'></input></label>
-                           <button  type='submit' className='dialog_resetpwd_btn' >Reset Password</button>
+                       <form onSubmit = {dialog_resetPwd}>
+                           <label className='dialog_resetpwd_label'>Old Password : <input required name='oldPwd'></input></label>
+                           <label className='dialog_resetpwd_label' >New Password : <input required name='newPwd'></input></label>
+                           <label className='dialog_resetpwd_label' >Confirm Password : <input required name='newPwd_2'></input></label>
+                           {dialogBoxError.pwd_mismatch_error && <div className='reset_dialog_error'>The password confirmation doesnt match</div>}
+                           {dialogBoxError.pwd_error && <div className='reset_dialog_error'>Incorrect password</div> }
+                           <button  type='submit' className='dialog_resetpwd_btn'>Reset Password</button>
+                           {console.log("the pwd match is ", dialogBoxError.pwdMatch)}
+                           {console.log("the pwd incorrect is ", dialogBoxError.pwd_error)}
+                           
+
                        </form>
 
                     </div>
                     <div className= {resetPwd ? 'overlay_btn_open' : 'overlay_btn_close' } ></div>
+                  
+                   
                     
             </Fragment>
         )
@@ -99,7 +134,6 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                 />
             </header>
             <main>
-               
                 <div className='user_profile_section'>
                     <div className='profile_section'>
                         <div className='account'>
@@ -134,7 +168,7 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                                 }
                                 return (
                                    <Fragment>
-                                    { E !== undefined && <div className='bookmark_prds_section' >
+                                    { E !== undefined && <div  key={e._id}  className='bookmark_prds_section' >
                                         <div className='bookmark_prds'>
                                             <div> <img src={E.imageFile[0]} alt={e.sellPrdName} className="bookmark_image"></img> </div>
                                             <div className='bookmark_prd_desc'>
@@ -177,7 +211,7 @@ function UserProfile({ details, setdetails, accessFlag, setaccessFlag, selectedP
                                 } else { price_whole_num = price; price_decimal_num = "" }
                                 return (
                                     <Fragment>
-                                     < div className='user_prds_section'>
+                                     < div key={e._id} className='user_prds_section'>
                                         <div className='usersellPrds_img'> <img src={E.imageFile[0]} alt={e.sellPrdName} className="bookmark_image"></img> </div>
                                         <div className='UsersellPrds_details'>
                                             <div> <span className='bookmarks_headings'> Books : </span> <a className='bookmark_heading_result' href='#'>  {E.sellPrdName} </a> </div>   

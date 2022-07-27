@@ -1,3 +1,8 @@
+
+.signup_button:hover { background-color:#1F75FE!important; }
+.LoginBtn:hover{ background-color:#1F75FE!important;}
+.resetBtn:hover{background-color:#1F75FE!important;}
+.button_as_link:hover{transform: scale(1.1);}
 /* css for reset password modal */
 .reset_pwd_modal {
     grid-template-columns: 1fr 0.8fr 1fr;
@@ -29,6 +34,8 @@
     color: red;
     font-weight: bolder;
     top: 0;
+
+    cursor: pointer;
 }
 .modal_box form{
     padding-left: 0rem;
@@ -41,8 +48,10 @@
     line-height: 2rem;
     border-radius: 14px;
     font-size: 21px;
-    background-color: #1877f2;
+    background-color: #318CE7;
     color: white;
+
+    cursor: pointer;
 }
 .reset_pwd_form input {
     border-radius: 20px;
@@ -78,7 +87,14 @@
     color: blue;
     font: large;
     font-size: 1rem;
+
+    cursor: pointer;
 }
+
+.pwd:hover{
+    transform: scale(1.1);
+}
+
 .login_sec input {
     border-radius: 20px;
     line-height: 1rem;
@@ -101,7 +117,8 @@ form {
 .signup_button{
     width: 18rem;
     margin: auto;
-    background-color: #1877f2;
+    /* background-color: #1877f2; */
+    background-color: #318CE7;
     font-size: 20px;
     color: white;
     line-height: 3rem;
@@ -156,8 +173,10 @@ form {
     line-height: 2rem;
     border-radius: 14px;
     font-size: 21px;
-    background-color: #1877f2;
+    background-color: #318CE7;
     color: white;
+
+    cursor: pointer;
 }
 .login_sec a {
     color: #047caf;
@@ -178,6 +197,8 @@ form {
     color: #0000EE;
     font-weight: bold;
     text-decoration: underline;
+
+    cursor: pointer;
 }
 @media (max-width : 480px) and (min-width : 320px) {
     .email {
