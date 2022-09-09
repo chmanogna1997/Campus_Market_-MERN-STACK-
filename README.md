@@ -25,7 +25,7 @@ Versions:
 
 # Mongodb Atlas
 
-Has database Campus Market having following collections:
+Has mongodb database named Campus Market with following collections:
 
 1. User_details
 2. books
