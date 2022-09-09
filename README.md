@@ -2,7 +2,7 @@
 
 This website is to help international students to plan their stay around their university. check for available houses around the campus, buy and sell reused household items, books, electronics etc..
 
-"# What we used to develop this"
+# What we used to develop this
 
 Here we developed this application using React.JS for frontend, Node.js for backend services, Mongodb atlas and firebase storage for saving and retreving the data.
 
