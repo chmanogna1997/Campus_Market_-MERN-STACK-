@@ -6,10 +6,10 @@ This website is to help international students to plan their stay around their u
 
 Here we developed this application using React.JS for frontend, Node.js for backend services, Mongodb atlas and firebase storage for saving and retreving the data.
 
-Versions:
- "react": 18.0.0
- "npm" : 8.1.2
- "node" : 16.13.2
+## Versions:
+ 1. "react": 18.0.0
+ 2. "npm" : 8.1.2
+ 3. "node" : 16.13.2
 
  # Components
 
@@ -35,20 +35,107 @@ Used Mongodb database named Campus Market having following collections:
 6. household items
 7. mobile & electronics.
 
-# firebase storage
+# Firebase Storage
 
  Used to store and retieve images
 
-# Business Problems addressed.
+# Business Problems Addressed.
 
 1. The website helps users to find products around their university using the global search bar. ![2](https://user-images.githubusercontent.com/91714626/189432579-bc7b921d-8e3a-46f9-8b4e-92a15addcc39.PNG)
 2. User can like/bookmark the products he wished to. ![4](https://user-images.githubusercontent.com/91714626/189434297-0395b7c6-01a6-4983-9b51-ad51ac281d59.PNG)
 
-# Business rules
+# Business Rules
 
 1. User needs to login to bookmark/ like any product
 2. User should be a registered member to sell his product on the site.
 3. User while selling his product must upload images of product but not more than 5. ![TTS](https://user-images.githubusercontent.com/91714626/189425111-a55c76bd-9e19-441b-a441-139c88950366.PNG)
+
+# Accessibility
+
+1. aria-hidden, aria-expanded, aria-labelled-by, aria-controls - for Accordions in TipsToSell component.
+2. aria-checked, arai-labelled-by - for checkbox in SignIn_login component.
+3. aria-roledescription,aria-label - for carousel in Homepage component.
+
+# Default login :
+
+you will be able to login with these default credentials too or you can signin and login to the website.
+
+Email: 'j1@gmail.com' Password: 'j1'
+
+
+***************************************************************************************************************************************************
+
+# Getting Started with Create React App
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
 
 
 
