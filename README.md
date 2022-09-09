@@ -17,7 +17,7 @@ Versions:
  2. SignIn_login  - User can either Signin or Login here
  3. Tips To Sell - User can sell their items here 
  4. Homepage - This about me page of the website
- 5. Display Products - This is opening page of the website
+ 5. Display Products - This is opening page of the website that displays the list of products on selected category( like tab) ![3](https://user-images.githubusercontent.com/91714626/189433927-a123e1e0-c1ee-473d-add6-26ac4b73871e.PNG)
  6. Show Product Details - This page shows details of the product
  7. User Profile - user can see his profile, products he bookmarked, produts he posted to sell
  8. Spinner
@@ -25,7 +25,7 @@ Versions:
 
 # Mongodb Atlas
 
-Has mongodb database named Campus Market with following collections:
+Used Mongodb database named Campus Market having following collections:
 
 1. User_details
 2. books
@@ -42,7 +42,7 @@ Has mongodb database named Campus Market with following collections:
 # Business Problems addressed.
 
 1. The website helps users to find products around their university using the global search bar. ![2](https://user-images.githubusercontent.com/91714626/189432579-bc7b921d-8e3a-46f9-8b4e-92a15addcc39.PNG)
-
+2. User can like/bookmark the products he wished to. ![4](https://user-images.githubusercontent.com/91714626/189434297-0395b7c6-01a6-4983-9b51-ad51ac281d59.PNG)
 
 # Business rules
 
