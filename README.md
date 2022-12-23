@@ -39,10 +39,33 @@ Used Mongodb database named Campus Market having following collections:
 
  Used to store and retieve images
 
-# Business Problems Addressed.
+# Regarding the website.
 
-1. The website helps users to find products around their university using the global search bar. ![2](https://user-images.githubusercontent.com/91714626/189432579-bc7b921d-8e3a-46f9-8b4e-92a15addcc39.PNG)
-2. User can like/bookmark the products he wished to. ![4](https://user-images.githubusercontent.com/91714626/189434297-0395b7c6-01a6-4983-9b51-ad51ac281d59.PNG)
+1. HomePage:![Homepage](https://user-images.githubusercontent.com/91714626/209271549-46a772b3-e408-46b0-acdb-1baa70ce59d6.png)
+
+2. SigninPage:![sign inimage](https://user-images.githubusercontent.com/91714626/209271956-71d6d168-65a0-42a6-b419-d8f4e38a413d.png) on siginin the data gets added to user_details collections as shown here: ![data_in_userdetails_image](https://user-images.githubusercontent.com/91714626/209272211-a2121576-423e-47de-a6ea-a3a74a5f90d5.png)
+
+3. Login Page :
+ Error message for invalid credentials: ![inavlid_login_user_image](https://user-images.githubusercontent.com/91714626/209272523-1a228af3-df6f-46b6-9c61-7a3242854f68.png)
+
+4. Reset Password : ![reset_pwd](https://user-images.githubusercontent.com/91714626/209272726-6ed73efc-d8e0-423c-b9a6-a394f8621ac9.png)
+ 
+Password gets updated accordingly in user_detail collection: ![reset_pwd](https://user-images.githubusercontent.com/91714626/209272726-6ed73efc-d8e0-423c-b9a6-a394f8621ac9.png)
+
+5. On suceesful login user can check their profile on clicking account button: ![account](https://user-images.githubusercontent.com/91714626/209273196-2b51c4ae-5ea1-4b69-895a-2b77ed65745b.png)
+
+6. User can sell/post their product : on clicking sell button on header:
+![sell_prd](https://user-images.githubusercontent.com/91714626/209273944-841fb5de-0658-489a-afb9-8d7f44e3cfb4.png)
+
+On success message : data gets added to corresponding collection(category) and image to firebase storage.
+![image](https://user-images.githubusercontent.com/91714626/209274397-0dbc45b6-5ce5-48d4-9fff-2987a46886ea.png)
+
+Same produt posted can be seen on products page: ![image](https://user-images.githubusercontent.com/91714626/209274915-6bc38bf5-9bf9-4cbd-b809-5685de9d6b4a.png): Post has product name, product price, University, Email adrees of the user posted the item.
+
+7. User profile page: ![image](https://user-images.githubusercontent.com/91714626/209275486-d6573b2b-2967-4e2f-9daa-54c033e5c985.png)
+
+8. The website helps users to find products around their university using the global search bar. ![2](https://user-images.githubusercontent.com/91714626/189432579-bc7b921d-8e3a-46f9-8b4e-92a15addcc39.PNG)
+9. User can like/bookmark the products he wished to. ![4](https://user-images.githubusercontent.com/91714626/189434297-0395b7c6-01a6-4983-9b51-ad51ac281d59.PNG)
 
 # Business Rules
 
