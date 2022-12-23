@@ -57,9 +57,10 @@ Used Mongodb database named Campus Market having following collections:
  ![reset_pwd](https://user-images.githubusercontent.com/91714626/209272726-6ed73efc-d8e0-423c-b9a6-a394f8621ac9.png)
  
 ##### Password gets updated accordingly in user_detail collection:
- ![reset_pwd](https://user-images.githubusercontent.com/91714626/209272726-6ed73efc-d8e0-423c-b9a6-a394f8621ac9.png)
+![image](https://user-images.githubusercontent.com/91714626/209276701-15451b19-f9af-4f26-a112-5760da2fb008.png)
 
-5. ##### On suceesful login user can check their profile on clicking account button: 
+
+5. ##### On suceesful login user can check their profile on clicking Account button: 
 ![account](https://user-images.githubusercontent.com/91714626/209273196-2b51c4ae-5ea1-4b69-895a-2b77ed65745b.png)
 
 6. ##### User can sell/post their product : on clicking sell button on header:
